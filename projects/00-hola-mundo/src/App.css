@@ -1,9 +1,16 @@
+
+/***********************/
+/* Twitter Follow Card */
+/***********************/
+
 .tw-followCard{
     display: flex;
     align-items: center;
     color: #fff;
     font-size: .8rem;
     justify-content: space-between;
+    
+        
 }
 
 .tw-followCard-header{
@@ -70,3 +77,94 @@
 .tw-followCard-stopFollow{
     display: none;
 }
+
+
+/************************/
+/** Twitter Post Card ***/
+/************************/
+/************************/
+
+.tw-postCard{
+    width: 598px;
+    color: #fff;
+    min-height: 612;
+    margin-right: 13px;
+    border: 1px solid aqua;
+    
+}
+.tw-postCard-header{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.tw-postCard-header .tw-postCard-info strong{
+    margin-right: 5px;
+}
+
+.tw-postCard-content{
+    width: 506px;
+    margin-left: 50px;
+}
+
+.tw-postCard-content p{
+    font-size: 15px;
+    margin-top: 0px;
+}
+
+
+
+.tw-postCard-content img{
+    border-radius: 16px;
+    min-height: 280px;
+    cursor: pointer;
+    width: auto;
+}
+.tw-postCard-buttons{
+    margin-top: 7px;
+    margin-bottom: 20px;
+   
+}
+
+.tw-postCard-buttons-noStyle{
+    background:none;
+    color: rgba(255, 255, 255, 0.282);
+    border: none;
+    font-size: 20px;
+    
+}
+
+.tw-postCard-buttons-noStyle:hover .button-heart{
+    color: red;
+    transition: color .4s; 
+}
+
+.tw-postCard-buttons-noStyle:hover .button-txt-heart{
+    color: red;
+    transition: color .4s, background-color .4s; 
+}
+
+.tw-postCard-buttons-noStyle:hover .button-retwet{
+    background-color: rgba(4, 219, 4, 0.292);
+    color: rgb(4, 219, 4);
+    border-radius: 20px;
+    transition: color .4s, background-color .4s; 
+}
+
+.tw-postCard-buttons-noStyle:hover .button-txt-retwet{
+    color: rgb(4, 219, 4);
+    transition: color .4s, background-color .4s; 
+}
+
+
+.tw-postCard-buttons-noStyle span{
+    margin-right: 20px;
+}
+
+.tw-postCard-buttonHearth{
+    margin-right: 30px;
+    
+}
+
+

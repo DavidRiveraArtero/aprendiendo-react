@@ -3,12 +3,21 @@ body{
     background: #222;
     font-family: system-ui;
     display: grid;
-    place-content: center;
     min-height: 100vh;
+    place-content: center;
 }
 
-.App{
+.twitter_contentFollowCard{
   display: flex;
   flex-direction: column;
-  gap: 16px;  
+  gap: 16px;
+  float: left;  
+}
+
+.twitter_contentPostCard{
+  margin-left: 20px;
+  float: left;
+  display: flex;
+  flex-direction: column;
+  gap: 16px; 
 }
