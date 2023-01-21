@@ -6,13 +6,12 @@ export function TwitterPostCard({nameTw,children,content, liked, retw}){
     
     
     const [isLiked, setIsLiked] = useState(liked)
-    const [numMegusta, setNumMeGusta] = useState(!isLiked ? 0:1)
+    const [numMegusta, setNumMeGusta] = useState(!isLiked ? 0 : 1)
 
-    const [numRetw, setNumRetw] = useState(!retw ? 0:1)
+    const [numRetw, setNumRetw] = useState(!retw ? 0 : 1)
     const [isRetw, setIsRetw] = useState(retw)
 
     const like = () =>{
-        
         setIsLiked(!isLiked)    
         isLiked ? setNumMeGusta(numMegusta - 1) : setNumMeGusta(numMegusta + 1)
     }

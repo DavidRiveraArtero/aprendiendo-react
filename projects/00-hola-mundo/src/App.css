@@ -9,7 +9,6 @@
     color: #fff;
     font-size: .8rem;
     justify-content: space-between;
-    
         
 }
 
@@ -29,6 +28,7 @@
 }
 
 .tw-followCard-avatar{
+    margin-left: 7px;
     width: 48px;
     height: 48px;
     border-radius: 1000px;
@@ -89,7 +89,8 @@
     color: #fff;
     min-height: 612;
     margin-right: 13px;
-    border: 1px solid aqua;
+    border-bottom: 1px solid rgba(199, 250, 250, 0.531);
+
     
 }
 .tw-postCard-header{

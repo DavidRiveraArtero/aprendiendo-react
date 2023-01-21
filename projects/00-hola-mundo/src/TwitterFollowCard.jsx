@@ -18,6 +18,7 @@ export function TwitterCard({userName, children, initialIsFollowing}){ // childe
 
     return(
         <article className='tw-followCard'>
+            
             <header className='tw-followCard-header'>
                 <img 
                     alt="Avatar midudev" 

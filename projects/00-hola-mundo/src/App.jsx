@@ -57,7 +57,7 @@ export function App(){
             </section>
             
             <section className='twitter_contentFollowCard'>
-
+                <h2 style={{color:"white"}}>Sugerencias</h2>
                 {
                     users.map(({userName, name, isFollowing}) =>{
                     
