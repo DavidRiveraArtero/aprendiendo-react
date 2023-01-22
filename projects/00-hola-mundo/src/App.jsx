@@ -24,9 +24,9 @@ export function App(){
 
     const post = [
         {
-            nameTw   :  'midudev',
-            userName :  'Migue Angel Duran',
-            content  :  'Mi primer video de js',
+            nameTw   :  'Pedro',
+            userName :  'Pedor Zero',
+            content  :  'Mi primer video ',
             liked    :   false,
             retw     :   true
             
@@ -57,7 +57,7 @@ export function App(){
             </section>
             
             <section className='twitter_contentFollowCard'>
-                <h2 style={{color:"white"}}>Sugerencias</h2>
+                <h3 style={{color:"white"}}>A quien seguri</h3>
                 {
                     users.map(({userName, name, isFollowing}) =>{
                     
@@ -68,6 +68,7 @@ export function App(){
                         )
                     })
                 }
+                <span style={{color:'white',opacity:'1'}}>Ver más</span>
             </section>
         </>
     )

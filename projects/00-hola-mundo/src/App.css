@@ -9,7 +9,13 @@
     color: #fff;
     font-size: .8rem;
     justify-content: space-between;
-        
+    padding: 12px;       
+}
+
+.tw-followCard:hover{
+    background-color: #bbb;
+    transition: .8s;
+    cursor: pointer;
 }
 
 .tw-followCard-header{
@@ -89,15 +95,24 @@
     color: #fff;
     min-height: 612;
     margin-right: 13px;
-    border-bottom: 1px solid rgba(199, 250, 250, 0.531);
-
-    
+    border-bottom: 1px solid rgba(199, 250, 250, 0.531);  
 }
+
+.tw-postCard:hover{
+    background-color: rgba(243, 238, 238, 0.145);
+    transition: .9s ;
+}
+
+
 .tw-postCard-header{
     width: 100%;
     display: flex;
     align-items: center;
     gap: 4px;
+}
+
+span{
+    opacity: .6;
 }
 
 .tw-postCard-header .tw-postCard-info strong{
@@ -106,7 +121,7 @@
 
 .tw-postCard-content{
     width: 506px;
-    margin-left: 50px;
+    margin-left: 60px;
 }
 
 .tw-postCard-content p{
@@ -132,7 +147,7 @@
     background:none;
     color: rgba(255, 255, 255, 0.282);
     border: none;
-    font-size: 20px;
+    font-size: 15px;
     
 }
 

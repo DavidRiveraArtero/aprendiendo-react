@@ -13,7 +13,6 @@ export function TwitterCard({userName, children, initialIsFollowing}){ // childe
     // FUNCION CAMBIAR ESTADO EL BOTON
     const handleClick = () =>{
         setIsFollowing(!isFollowing)
-        
     }
 
     return(
@@ -27,7 +26,7 @@ export function TwitterCard({userName, children, initialIsFollowing}){ // childe
 
                 <div className='tw-followCard-info'>
                     <strong>{children}</strong>
-                    <span>@{userName}</span>
+                    <span className="tw-follwCard-info-span">@{userName}</span>
                     
                 </div>
             </header>

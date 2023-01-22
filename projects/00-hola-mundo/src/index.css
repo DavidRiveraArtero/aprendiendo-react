@@ -1,6 +1,6 @@
 body{
     margin: 0;
-    background: #222;
+    background: rgb(0, 0, 0);
     font-family: system-ui;
     display: grid;
     min-height: 100vh;
@@ -12,8 +12,9 @@ body{
   flex-direction: column;
   gap: 16px;
   float: left;
-  
-  border-left: 2px solid rgb(250, 195, 195);  
+  background-color: rgba(243, 238, 238, 0.145);
+  border-radius: 20px 20px 0px 0px;
+  width: 348px;
 }
 
 .twitter_contentPostCard{
