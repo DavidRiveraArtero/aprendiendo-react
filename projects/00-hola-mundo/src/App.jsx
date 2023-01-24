@@ -16,7 +16,7 @@ export function App(){
             isFollowing : true
         },
         {
-            userName    :'Pedro',
+            userName    :'midudev',
             name        :'Pedor Zero',
             isFollowing : true
         },
@@ -24,7 +24,7 @@ export function App(){
 
     const post = [
         {
-            nameTw   :  'Pedro',
+            nameTw   :  'midudev',
             userName :  'Pedor Zero',
             content  :  'Mi primer video ',
             liked    :   false,
@@ -32,7 +32,7 @@ export function App(){
             
         },
         {
-            nameTw   :  'evilafm',
+            nameTw   :  'dase',
             userName :  'Alexelcapo',
             content  :  'Nuevo video de DS3',
             liked    :   true,
