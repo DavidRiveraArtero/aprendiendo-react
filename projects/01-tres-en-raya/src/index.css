@@ -33,6 +33,17 @@ body {
   width: fit-content;
   margin: 40px auto;
   text-align: center;
+  float: left;
+}
+
+.puntos{
+  margin-left: 50px;
+  padding-top: 200px;
+  text-align: left!important;
+}
+
+.puntos h1{
+  margin-bottom: 0px !important;
 }
 
 .board h1 {

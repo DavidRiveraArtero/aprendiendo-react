@@ -8,7 +8,7 @@ export const checkWinerFrom = (boardToCheck) => {
         if(boardToCheck[a] && // 0 -> X u O
         boardToCheck[a] === boardToCheck[b] // Miramos si se repite
         && boardToCheck[a] === boardToCheck[c]){ // Lo mismo
-
+            
             return boardToCheck[a]
             
         }
