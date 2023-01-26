@@ -79,12 +79,23 @@ body {
   height: 70px;
   pointer-events: none;
   border-color: transparent;
-}
+} /*EL POINTER_EVENTT HACE QUE NO PODAMOS CLICKAR EN LOS BOTONES X y O Y POR ESO NO SE APLICA EL EVENTO DEL BOTON Y EL HOVER*/
 
 .square.is-selected {
   color: #fff;
   background: #09f;
 }
+
+.game .square-green:hover{
+  background-color: green;
+  transition: .5s;
+}
+
+.game .square-red:hover{
+  background-color: red;
+  transition: .5s;
+}
+
 
 .winner {
   position: absolute;
