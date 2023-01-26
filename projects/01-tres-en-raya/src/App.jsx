@@ -38,7 +38,7 @@ function App() {
       if(newWiner == 'x'){
         setVictX(victX + 1)
       }else{
-        setVictY(victO + 1)
+        setVictO(victO + 1)
       }
 
       setWin(newWiner)
