@@ -1,9 +1,9 @@
 import { useState } from "react"
 import { Square } from "./components/Square"
 import { TURNS } from "./constants"
-import { checkWinerFrom } from "./logic/board"
+import { checkWinerFrom, checkEndGame } from "./logic/board"
 import { Winner } from "./components/Winner"
-
+import { PuntosJug } from "./components/puntos"
 function App() {
 
   const [board, setBoard] = useState(Array(9).fill(null)) // CREAMOS EL TABLERO 
@@ -13,13 +13,9 @@ function App() {
   const [victX, setVictX] = useState(0)
   const [victO, setVictO] = useState(0)
 
-
-  const checkEndGame = (newBoard) =>{
-    return newBoard.every((square) => square != null)
-  }
-
   // FUNCION ACTUALIZAR LA TABLA
   const updateBoard = (index) =>{
+    
     // ACTUALIZAR LA TABLA
     if(board[index] || win) return
 
@@ -89,16 +85,8 @@ function App() {
         <Winner win={win} resetGame={resetGame}></Winner>
       </main>
 
-      <section className="board puntos">
-        <h1>Victorias</h1><br/>
-        <h1>{TURNS.X} = <span> {victX}</span></h1>
-        <h1>{TURNS.O} = <span> {victO}</span></h1>
-      </section>
+      <PuntosJug TURNS={TURNS} victO={victO} victX={victX}></PuntosJug>
     </>
-   
-    
-
-    
   )
 }
 

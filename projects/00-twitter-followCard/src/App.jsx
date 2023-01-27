@@ -18,7 +18,7 @@ export function App(){
         {
             userName    :'midudev',
             name        :'Pedor Zero',
-            isFollowing : true
+            isFollowing : true,
         },
     ]
 
