@@ -5,9 +5,19 @@ import { checkWinerFrom, checkEndGame } from "./logic/board"
 import { Winner } from "./components/Winner"
 import { PuntosJug } from "./components/puntos"
 function App() {
-
-  const [board, setBoard] = useState(Array(9).fill(null)) // CREAMOS EL TABLERO 
-  const [turn, setTurn] = useState(TURNS.X)
+  
+ 
+  if(localStorage.getItem('board') == null){
+    console.log("Cargar board")
+    localStorage.setItem('board',JSON.stringify(Array(9).fill(null)))
+    localStorage.setItem('turn',TURNS.X)
+  }else{
+    console.log("Tablero Juardado",JSON.parse(localStorage.getItem("board")))
+  }
+  
+  
+  const [board, setBoard] = useState(JSON.parse(localStorage.getItem("board"))) // CREAMOS EL TABLERO Array(9).fill(null)
+  const [turn, setTurn] = useState(localStorage.getItem('turn'))
   const [win, setWin] = useState(null) // null es que no hay ganador, false es empate y true hay ganador
 
   const [victX, setVictX] = useState(0)
@@ -15,7 +25,7 @@ function App() {
 
   // FUNCION ACTUALIZAR LA TABLA
   const updateBoard = (index) =>{
-    
+   
     // ACTUALIZAR LA TABLA
     if(board[index] || win) return
 
@@ -23,8 +33,14 @@ function App() {
     newBord[index] = turn
     setBoard(newBord)
 
+    localStorage.removeItem('board')
+    localStorage.setItem('board',JSON.stringify(newBord))
+
+    
     // SEGUNDO CAMBIAR DE TURNO 
     const newTurn = turn == TURNS.X ? TURNS.O : TURNS.X
+    localStorage.removeItem('turn')
+    localStorage.setItem('turn',newTurn)
     setTurn(newTurn)
 
     const newWiner = checkWinerFrom(newBord,setVictX,setVictO)
