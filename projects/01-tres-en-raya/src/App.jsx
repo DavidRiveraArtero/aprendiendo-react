@@ -6,22 +6,29 @@ import { Winner } from "./components/Winner"
 import { PuntosJug } from "./components/puntos"
 function App() {
   
- 
-  if(localStorage.getItem('board') == null){
-    console.log("Cargar board")
-    localStorage.setItem('board',JSON.stringify(Array(9).fill(null)))
-    localStorage.setItem('turn',TURNS.X)
-  }else{
-    console.log("Tablero Juardado",JSON.parse(localStorage.getItem("board")))
-  }
-  
-  
-  const [board, setBoard] = useState(JSON.parse(localStorage.getItem("board"))) // CREAMOS EL TABLERO Array(9).fill(null)
-  const [turn, setTurn] = useState(localStorage.getItem('turn'))
+  const [board, setBoard] = useState(() =>{
+    const boardFromLocalStorage = window.localStorage.getItem('board')
+    return boardFromLocalStorage ? JSON.parse(boardFromLocalStorage) : Array(9).fill(null)
+  }) // CREAMOS EL TABLERO 
+
+  const [turn, setTurn] = useState(() => {
+    const turnOfLocaStorage = window.localStorage.getItem('turn')
+    return turnOfLocaStorage ? turnOfLocaStorage : TURNS.X
+  })
+
   const [win, setWin] = useState(null) // null es que no hay ganador, false es empate y true hay ganador
 
-  const [victX, setVictX] = useState(0)
-  const [victO, setVictO] = useState(0)
+  const [victX, setVictX] = useState(() => {
+
+    const victXOfLOcalStorage = window.localStorage.getItem('victX')
+    return victXOfLOcalStorage ? JSON.parse(victXOfLOcalStorage) : 0
+  })
+
+  const [victO, setVictO] = useState(() => {
+    
+    const victOOfLOcalStorage = window.localStorage.getItem('victO')
+    return victOOfLOcalStorage ? JSON.parse(victOOfLOcalStorage) : 0
+  })
 
   // FUNCION ACTUALIZAR LA TABLA
   const updateBoard = (index) =>{
@@ -33,30 +40,40 @@ function App() {
     newBord[index] = turn
     setBoard(newBord)
 
-    localStorage.removeItem('board')
-    localStorage.setItem('board',JSON.stringify(newBord))
-
-    
     // SEGUNDO CAMBIAR DE TURNO 
     const newTurn = turn == TURNS.X ? TURNS.O : TURNS.X
-    localStorage.removeItem('turn')
+    // LIMPIAR Y GUARDAR LA PARTIDA
+    
+    localStorage.setItem('board',JSON.stringify(newBord))
     localStorage.setItem('turn',newTurn)
+   
     setTurn(newTurn)
 
     const newWiner = checkWinerFrom(newBord,setVictX,setVictO)
     if(newWiner){
-
       // SUMAR VICTORIAS
-      if(newWiner == 'x'){
-        setVictX(victX + 1)
+      if(newWiner == 'X'){
+        setVictX(() => {
+          const victoriaJX = victX + 1
+          console.log("Victoria del Jugador 1",victoriaJX)
+          localStorage.setItem('victX',JSON.parse(victoriaJX))
+          return victoriaJX
+        })
       }else{
-        setVictO(victO + 1)
+        setVictO(() => {
+          const victoriaJO = victO + 1
+          console.log("Victoria del Jugador 2",victoriaJO)
+          localStorage.setItem('victO',JSON.parse(victoriaJO))
+          return victoriaJO
+        })
       }
-
+      localStorage.removeItem('board')
+      localStorage.removeItem('turn')
       setWin(newWiner)
 
     }else if(checkEndGame(newBord)){
-
+      localStorage.removeItem('board')
+      localStorage.removeItem('turn')
       setWin(false)
 
     }
