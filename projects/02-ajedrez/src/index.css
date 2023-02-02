@@ -52,7 +52,6 @@ body {
 
 .startGame_buttonSection .startGame_button{
   width: 100%;  
-
 }
 
 .startGame_buttonSection .startGame_button button{
@@ -81,12 +80,19 @@ body {
   margin: 40px auto;
   text-align: center;
   float: left;
+  
+}
+.impar{
+  background-color: rgb(237, 189, 127);
+}
+
+.par{
+  background-color: #874002;
 }
 
 .board .game{
   display: grid;
   grid-template-columns: repeat(8, 1fr);
-  gap: 20px;
 }
 
 .board .game .casilla{
@@ -106,5 +112,8 @@ body {
   flex-direction: column;
   float: left;
   margin-left: 40px;
-  min-height: 80vh;
+  min-height: 60vh;
+}
+.colorB{
+  color: black;
 }

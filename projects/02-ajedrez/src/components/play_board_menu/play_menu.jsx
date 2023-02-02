@@ -1,10 +1,10 @@
 import { useState } from "react"
-export function Play_menu(){
+export function Play_menu({functTime}){
 
     const [start,setStart]= useState(false)
-
     if(start == true) return
     const playGame = () => {
+       
         setStart(!start)
     }
 
