@@ -1,6 +1,6 @@
 export function BoardComponent({index, board}){
     return(
-        <div key={index} className="casilla">
+        <div className="casilla">
             <p>{board[index]}</p>
         </div>
     )

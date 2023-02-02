@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import { BoardComponent } from './components/board/boardComponent'
-
+import { Play_menu } from './components/play_board_menu/play_menu'
 function App() {
   const [board, setBoard] = useState(new Array(64)
                                       .fill('♖',0,1)
@@ -27,20 +27,22 @@ function App() {
     
   return (
     <>
-      <section>
-        
-      </section>
+      <Play_menu></Play_menu>
       <main className='board'>
         <section className='game'>
           {
             board.map((_,index) =>{
               return(
-                <BoardComponent index={index} board={board}></BoardComponent>
+                <BoardComponent key={index} index={index} board={board}></BoardComponent>
               )  
             }) 
           }
         </section>
-      </main>   
+      </main>
+      <section className='temporizador_Tiempo'>
+        <h2>Temporizador</h2>
+        <p>Tiempo</p>
+      </section>   
     </>
   )
 }

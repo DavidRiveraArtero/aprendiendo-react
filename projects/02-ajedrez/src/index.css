@@ -23,6 +23,57 @@ body {
   min-width: 320px;
   min-height: 100vh;
 }
+.startGame{
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.startGame_buttonSection{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 300px;
+  height: 300px;
+  border: 1px solid red;
+  background-color: rgba(240, 248, 255, 0.532);
+  color: black;
+  border-radius: 20px;
+  position: relative;
+  animation-name: moveSectionButton;
+  animation-duration: 1.5s;
+}
+
+
+.startGame_buttonSection .startGame_button{
+  width: 100%;  
+
+}
+
+.startGame_buttonSection .startGame_button button{
+  width: 70%;
+  height: 100px;
+  font-size: 20px;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 20px;
+  transition: transform .2s;
+}
+
+.startGame_buttonSection .startGame_button button:hover{
+  transform: scale(1.1);
+}
+
+@keyframes moveSectionButton {
+  0% {left: -800px;}
+  100% {left: 0px;}
+}
+
 
 
 .board{
@@ -47,4 +98,13 @@ body {
   border: 1px solid white;
   cursor: pointer;
   font-size: 45px;
+}
+
+.temporizador_Tiempo{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  float: left;
+  margin-left: 40px;
+  min-height: 80vh;
 }

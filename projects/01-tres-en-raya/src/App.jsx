@@ -81,6 +81,8 @@ function App() {
   }
 
   const resetGame = () => {
+    localStorage.removeItem('board')
+    localStorage.removeItem('turn')
     setBoard(Array(9).fill(null))
     setWin(null)
     setTurn(TURNS.X)
