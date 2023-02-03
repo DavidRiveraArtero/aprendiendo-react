@@ -3,6 +3,8 @@ import './App.css'
 import { BoardComponent } from './components/board/boardComponent'
 import { Play_menu } from './components/play_board_menu/play_menu'
 import { TimeBoard } from './components/timeBoard/timeBoard'
+import { comprobarPieza } from './logic/movePice'
+
 function App() {
   const [board, setBoard] = useState(new Array(64)
                                       .fill('♖',0,1)
@@ -28,10 +30,10 @@ function App() {
   // DRAG AND DROP
   const dragItem = useRef()
   const dragOverItem = useRef()
-
+  const [firstMoveWhite, setFirstMoveWhite] = useState(true)
   const dragStart = (e, position) => {
       dragItem.current = position
-      console.log("DragStart",dragItem.current)
+
       
   }
 
@@ -40,20 +42,21 @@ function App() {
   }
 
   const drop = (e) =>{
-      const copyBoardList = [...board]
-      const dragItemContent = copyBoardList[dragItem.current]
+    const copyBoardList = [...board]
+    const dragItemContent = copyBoardList[dragItem.current]
 
-      // COMPROBAR SI ESTA VACIO PARA PODER HACER LOS CAMBIOS
-      if(copyBoardList[dragOverItem.current] == null){
-        copyBoardList.splice(dragItem.current , 1, null)
-        copyBoardList.splice(dragOverItem.current,1,dragItemContent)
+    // SI queremos mover todas las fichas sin ninguna regla eliminar esta linea
+    dragOverItem.current = comprobarPieza(dragItemContent,dragOverItem,dragItem,copyBoardList,firstMoveWhite,setFirstMoveWhite) // PRUEBA
+    
+    // COMPROBAR SI ESTA VACIO PARA PODER HACER LOS CAMBIOS
+    if(copyBoardList[dragOverItem.current] == null){
+      copyBoardList.splice(dragItem.current , 1, null)
+      copyBoardList.splice(dragOverItem.current,1,dragItemContent)
+    }
 
-      }
-
-   
-      dragItem.current = null
-      dragOverItem.current = null
-      setBoard(copyBoardList)
+    dragItem.current = null
+    dragOverItem.current = null
+    setBoard(copyBoardList)
 
   }
 
