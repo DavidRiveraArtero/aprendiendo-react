@@ -1,5 +1,11 @@
 export const comprobarPieza = (pieza,dragOverItem,dragItem,copyBoardList,firstMoveWhite,setFirstMoveWhite) => {
-    
+    const moveH = [
+                    [8,15], // -> dragItem = 9 
+                    [16,23],
+                    [24,32],
+                    [33,40],
+                    [41,48]
+                   ]
     switch (pieza){
         // CASO DE LAS PIEZAS BLANCAS
         case '♙':
@@ -16,41 +22,37 @@ export const comprobarPieza = (pieza,dragOverItem,dragItem,copyBoardList,firstMo
             return dragOverItem.current = dragItem.current
             
         case '♖':
-            console.log(copyBoardList[dragItem.current + 8])
-            let exist = false
-            let posi = 0
-            for(var a = 0; a<copyBoardList.length;a++){
-                // TIEN QUE SER MUTLIPLO DE 8 PARA MOVERSE 
-                if(dragOverItem.current == dragItem.current + a && (a % 8) == 0 && copyBoardList[dragOverItem.current] == null){
-                    for(let x = dragItem.current + 1 ; x < dragOverItem.current + 1; x++){
-                       
-                       if((x % 8) == 0 && copyBoardList[x + 1 ] != null){
-                            console.log("X True",(x % 8) == 0)
-                            console.log("X true: ", x , ": " ,copyBoardList[x])
-                            console.log("X true: ", x , ": + 1 " ,copyBoardList[x + 1])
-                            exist = true
-                            console.log(exist)
-                            posi = x
-                            
-                       }else{
-                            console.log("X else",(x % 8) == 0)
-                            console.log("X else: ", x , ": " ,copyBoardList[x])
-                            console.log("X else: ", x , ": + 1 " ,copyBoardList[x+1])
-
-                            exist = false
-                       }
-                    }
-                } 
-                
-            }
-
-            if(exist == true){
-                console.log("exist")
-                exist = false
-                return dragOverItem.current = dragItem.current + posi
-            }
             
-            console.log(pieza)
+            let x = 0
+            for(var a = dragItem.current+1; a<=dragOverItem.current;a++){
+                // TIEN QUE SER MUTLIPLO DE 8 PARA MOVERSE 
+                x++
+                // MOVIMIENTO VERTICAL
+                if(copyBoardList[a] === null && (x % 8) == 0 && a == dragOverItem.current){
+                    console.log("Vertical Move") 
+                    const result = dragOverItem.current = dragItem.current + x 
+                    x = 0
+                    return result
+                    
+                }else if(copyBoardList[a] !== null && (x % 8) == 0){
+                    window.alert("No puedes hacer eso")
+                    return dragOverItem.current = dragItem.current
+                }
+            }
+            // MOVIMIENTO HORIZONTAL
+            for(var index = 0 ; index < moveH.length;index++){
+               
+                if(dragItem.current >= moveH[index][0] || dragItem.current >= moveH[index][1] && dragOverItem.current <= moveH[index][1] && (a % 8) != 0){
+                    // MODIFICAR EL IF
+                    if(dragOverItem.current < dragItem.current && dragOverItem.current < moveH[index][1]){
+                        console.log("dentro AAA")
+                        console.log(dragItem.current - dragOverItem.current)
+                        return dragOverItem.current = dragOverItem.current - x
+                    }
+                    return dragOverItem.current = dragItem.current + x
+                }
+            }
+
             window.alert("Esta Pieza no puede hacer ese movimiento: " + pieza)    
             return dragOverItem.current = dragItem.current
       }

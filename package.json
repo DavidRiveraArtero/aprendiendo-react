@@ -16,5 +16,11 @@
   "bugs": {
     "url": "https://github.com/DavidRiveraArtero/aprendiendo-react/issues"
   },
-  "homepage": "https://github.com/DavidRiveraArtero/aprendiendo-react#readme"
+  "homepage": "https://github.com/DavidRiveraArtero/aprendiendo-react#readme",
+  "devDependencies": {
+    "standard": "^17.0.0"
+  },
+  "eslintConfig": {
+    "extends": "/.node_modules/standard/eslintrc.json"
+  }
 }
