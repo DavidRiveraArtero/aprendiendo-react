@@ -1,10 +1,10 @@
 export const comprobarPieza = (pieza,dragOverItem,dragItem,copyBoardList,firstMoveWhite,setFirstMoveWhite) => {
     const moveH = [
-                    [8,15], // -> dragItem = 9 
+                    [8,15], // -> dragItem = 9 => Su POS INICIAL   DRAGOVER -> SU POSICION FINAL
                     [16,23],
-                    [24,32],
-                    [33,40],
-                    [41,48]
+                    [24,31],
+                    [32,39],
+                    [40,48]
                    ]
     switch (pieza){
         // CASO DE LAS PIEZAS BLANCAS
@@ -24,6 +24,8 @@ export const comprobarPieza = (pieza,dragOverItem,dragItem,copyBoardList,firstMo
         case '♖':
             
             let x = 0
+            let numbHor = 0
+            let moreBigest = true
             for(var a = dragItem.current+1; a<=dragOverItem.current;a++){
                 // TIEN QUE SER MUTLIPLO DE 8 PARA MOVERSE 
                 x++
@@ -40,19 +42,25 @@ export const comprobarPieza = (pieza,dragOverItem,dragItem,copyBoardList,firstMo
                 }
             }
             // MOVIMIENTO HORIZONTAL
+        
             for(var index = 0 ; index < moveH.length;index++){
                
-                if(dragItem.current >= moveH[index][0] || dragItem.current >= moveH[index][1] && dragOverItem.current <= moveH[index][1] && (a % 8) != 0){
-                    // MODIFICAR EL IF
-                    if(dragOverItem.current < dragItem.current && dragOverItem.current < moveH[index][1]){
-                        console.log("dentro AAA")
-                        console.log(dragItem.current - dragOverItem.current)
-                        return dragOverItem.current = dragOverItem.current - x
-                    }
-                    return dragOverItem.current = dragItem.current + x
+                if(dragItem.current >= moveH[index][0] && dragOverItem.current <= moveH[index][1]) {
+
+                    console.log("DragOverItem: ", dragOverItem.current)
+                    console.log("DragItem: ", dragItem.current)
+                    console.log("MoveH: ", moveH[index])
+                    
+                    const resta = dragOverItem.current - dragItem.current
+                    return dragOverItem.current = dragItem.current + resta    
+                   
                 }
+                
+
+                
             }
 
+            if(moreBigest)
             window.alert("Esta Pieza no puede hacer ese movimiento: " + pieza)    
             return dragOverItem.current = dragItem.current
       }
