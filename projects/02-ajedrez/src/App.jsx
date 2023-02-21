@@ -7,6 +7,8 @@ import { comprobarPieza } from './logic/movePice'
 
 function App() {
  
+  const [vid_blancas,setVid_blancas] = useState(16)
+  const [vid_negras,setVid_negra] = useState(16)
 
   const [board2, setBoard2] = useState([["♖","♘","♗","♕",'♔','♗','♘','♖'],
                                         ['♙','♙','♙','♙','♙','♙','♙','♙'],
