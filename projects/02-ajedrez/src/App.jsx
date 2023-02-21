@@ -6,57 +6,59 @@ import { TimeBoard } from './components/timeBoard/timeBoard'
 import { comprobarPieza } from './logic/movePice'
 
 function App() {
-  const [board, setBoard] = useState(new Array(64)
-                                      .fill('♖',0,1)
-                                      .fill('♘',1,2)
-                                      .fill('♗',2,3)
-                                      .fill('♕',3,4)
-                                      .fill('♔',4,5)
-                                      .fill('♗',5,6)
-                                      .fill('♘',6,7)
-                                      .fill('♖',7,8)
-                                      .fill('♙',8,16)
-                                      .fill(null,16,48)
-                                      .fill('♟',48,56)
-                                      .fill("♜",56,57)
-                                      .fill("♞",57,58)
-                                      .fill('♝',58,59)
-                                      .fill('♛',59,60)
-                                      .fill('♚',60,61)
-                                      .fill('♝',61,62)
-                                      .fill('♞',62,63)
-                                      .fill('♜',63,64))
-  
-  // DRAG AND DROP
-  const dragItem = useRef()
-  const dragOverItem = useRef()
-  const [firstMoveWhite, setFirstMoveWhite] = useState(true)
-  const dragStart = (e, position) => {
-      dragItem.current = position
+ 
 
+  const [board2, setBoard2] = useState([["♖","♘","♗","♕",'♔','♗','♘','♖'],
+                                        ['♙','♙','♙','♙','♙','♙','♙','♙'],
+                                        new Array(8).fill(null),
+                                        new Array(8).fill(null),
+                                        new Array(8).fill(null),
+                                        new Array(8).fill(null),
+                                        ['♟','♟','♟','♟','♟','♟','♟','♟'],
+                                        ['♜','♞','♝','♛','♚','♝','♞','♜']]
+                                        )
+
+
+  // DRAG AND DROP
+  const dragItemColumn = useRef()
+  const dragItemFila = useRef()
+
+  const dragOverItemFila = useRef()
+  const dragOverItemColumn = useRef()
+  const [firstMoveWhite, setFirstMoveWhite] = useState(true)
+
+  const dragStart = (e, columna,fila) => {
+     
+      dragItemFila.current = fila
+      dragItemColumn.current = columna
+      
       
   }
 
-  const dragEnter = (e, position) =>{
-      dragOverItem.current = position
+  const dragEnter = (e, columna,fila) =>{
+      dragOverItemFila.current = fila  
+      dragOverItemColumn.current = columna
+      
   }
 
   const drop = (e) =>{
-    const copyBoardList = [...board]
-    const dragItemContent = copyBoardList[dragItem.current]
-
+    const copyBoardList = [...board2]
+    const dragItemContent = copyBoardList[dragItemFila.current][dragItemColumn.current]
+   
     // SI queremos mover todas las fichas sin ninguna regla eliminar esta linea
-    dragOverItem.current = comprobarPieza(dragItemContent,dragOverItem,dragItem,copyBoardList,firstMoveWhite,setFirstMoveWhite) // PRUEBA
+    dragOverItemColumn.current = comprobarPieza(dragItemContent,dragOverItemColumn,dragItemColumn,copyBoardList,firstMoveWhite,setFirstMoveWhite,dragOverItemFila,dragItemFila) // PRUEBA
     
-    // COMPROBAR SI ESTA VACIO PARA PODER HACER LOS CAMBIOS
-    if(copyBoardList[dragOverItem.current] == null){
-      copyBoardList.splice(dragItem.current , 1, null)
-      copyBoardList.splice(dragOverItem.current,1,dragItemContent)
+    if(copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] == null && dragOverItemColumn.current != null){
+      copyBoardList[dragItemFila.current].splice(dragItemColumn.current,1,null)
+      copyBoardList[dragOverItemFila.current].splice(dragOverItemColumn.current,1,dragItemContent)
+     
     }
 
-    dragItem.current = null
-    dragOverItem.current = null
-    setBoard(copyBoardList)
+    dragItemColumn.current = null
+    dragItemFila.current = null
+    dragOverItemFila.current = null
+    dragOverItemColumn.current = null
+    setBoard2(copyBoardList)
 
   }
 
@@ -66,20 +68,25 @@ function App() {
       <main className='board'>
         <section className='game'>
           {
-            board.map((_,index) =>{
-              return(
-                <BoardComponent key={index} 
-                                index={index} 
-                                board={board} 
-                                dragStart={dragStart}
-                                dragEnter={dragEnter}
-                                drop={drop}></BoardComponent>
-              )  
+            board2.map((celda,fila) =>{
+              
+              return celda.map((_,columna)=> {
+
+                return(
+                  <BoardComponent key={fila+columna} 
+                                  columna={columna}
+                                  fila={fila} 
+                                  board={board2} 
+                                  dragStart={dragStart}
+                                  dragEnter={dragEnter}
+                                  drop={drop}/>
+                )
+              }) 
             }) 
           }
         </section>
       </main>
-      <TimeBoard></TimeBoard>
+      <TimeBoard/>
     </>
   )
 }
