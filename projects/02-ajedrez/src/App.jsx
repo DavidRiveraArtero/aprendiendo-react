@@ -4,11 +4,15 @@ import { BoardComponent } from './components/board/boardComponent'
 import { Play_menu } from './components/play_board_menu/play_menu'
 import { TimeBoard } from './components/timeBoard/timeBoard'
 import { comprobarPieza } from './logic/movePice'
-
+import { replacePosition } from './logic/replacePosition'
 function App() {
  
-  const [vid_blancas,setVid_blancas] = useState(16)
-  const [vid_negras,setVid_negra] = useState(16)
+
+  const [turn,setTurn] = useState(true)
+
+  const piezasBlanc = ['♙','♖','♗','♕','♔','♘']
+  const piezasNegras = ['♟','♜','♞','♛','♚','♝']
+
 
   const [board2, setBoard2] = useState([["♖","♘","♗","♕",'♔','♗','♘','♖'],
                                         ['♙','♙','♙','♙','♙','♙','♙','♙'],
@@ -28,6 +32,7 @@ function App() {
   const dragOverItemFila = useRef()
   const dragOverItemColumn = useRef()
   const [firstMoveWhite, setFirstMoveWhite] = useState(true)
+  const [firstMoveBlack, setFirstMoveBlack] = useState(true)
 
   const dragStart = (e, columna,fila) => {
      
@@ -48,21 +53,20 @@ function App() {
     const dragItemContent = copyBoardList[dragItemFila.current][dragItemColumn.current]
    
     // SI queremos mover todas las fichas sin ninguna regla eliminar esta linea
-    dragOverItemColumn.current = comprobarPieza(dragItemContent,dragOverItemColumn,dragItemColumn,copyBoardList,firstMoveWhite,setFirstMoveWhite,dragOverItemFila,dragItemFila) // PRUEBA
+    dragOverItemColumn.current = comprobarPieza(dragItemContent,dragOverItemColumn,dragItemColumn,copyBoardList,firstMoveWhite,setFirstMoveWhite,dragOverItemFila,dragItemFila,turn,setTurn, firstMoveBlack, setFirstMoveBlack) // PRUEBA
     
-    if(copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] == null && dragOverItemColumn.current != null){
-      copyBoardList[dragItemFila.current].splice(dragItemColumn.current,1,null)
-      copyBoardList[dragOverItemFila.current].splice(dragOverItemColumn.current,1,dragItemContent)
-     
-    }
-
+    const newCopyBoardList = replacePosition(copyBoardList,dragItemColumn, dragItemFila, dragOverItemColumn, dragOverItemFila, piezasBlanc, piezasNegras,dragItemContent,turn)
+    
     dragItemColumn.current = null
     dragItemFila.current = null
     dragOverItemFila.current = null
     dragOverItemColumn.current = null
-    setBoard2(copyBoardList)
-
+    setBoard2(newCopyBoardList)
+    
   }
+
+  
+
 
   return (
     <>
@@ -88,6 +92,7 @@ function App() {
           }
         </section>
       </main>
+      
       <TimeBoard/>
     </>
   )
