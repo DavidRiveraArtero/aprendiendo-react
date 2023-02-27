@@ -83,6 +83,7 @@ function App() {
                                   columna={columna}
                                   fila={fila} 
                                   board={board2} 
+                                  piezasNegras={piezasNegras}
                                   dragStart={dragStart}
                                   dragEnter={dragEnter}
                                   drop={drop}/>

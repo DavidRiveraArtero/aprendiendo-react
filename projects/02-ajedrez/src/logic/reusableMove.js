@@ -1,30 +1,42 @@
 // MOVE PEON WHITE
-export const moveWhitePeon = (dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn, firstMoveWhite,setFirstMoveWhite,setTurn,turn) =>{
+export const moveWhitePeon = (dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn, firstMoveWhite,setFirstMoveWhite,setTurn,turn,copyBoardList) =>{
     
 
     if(dragOverItemFila.current == dragItemFila.current + 2 && firstMoveWhite && dragOverItemColumn.current == dragItemColumn.current){    
         setFirstMoveWhite(false)
         setTurn(!turn)
         return dragOverItemColumn = dragOverItemColumn.current
-    }else if(dragOverItemFila.current == dragItemFila.current + 1 && dragOverItemColumn.current == dragItemColumn.current){
+    }else if(dragOverItemFila.current == dragItemFila.current + 1 && dragOverItemColumn.current == dragItemColumn.current 
+        && copyBoardList[dragOverItemFila.current][dragOverItemColumn.current]== null){
+
         setTurn(!turn)
         setFirstMoveWhite(false)
+        return dragOverItemColumn = dragOverItemColumn.current 
+    }
+    
+    if(dragOverItemColumn.current == dragItemColumn.current + 1 || dragOverItemColumn.current == dragItemColumn.current - 1 && dragOverItemFila.current == dragItemFila.current + 1 && copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] != null){
         return dragOverItemColumn = dragOverItemColumn.current
-    }     
+    }
     
 }
 
 // MOVE PEON BLACK
 
-export const moveBlackPeon = (dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn, firstMoveBlack, setFirstMoveBlack,setTurn,turn) => {   
+export const moveBlackPeon = (dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn, firstMoveBlack, setFirstMoveBlack,setTurn,turn,copyBoardList) => {   
 
     if(dragOverItemFila.current == dragItemFila.current - 2 && firstMoveBlack && dragOverItemColumn.current == dragItemColumn.current){
         setTurn(!turn)
         setFirstMoveBlack(false)
         return dragOverItemColumn = dragOverItemColumn.current
-    }else if(dragOverItemFila.current == dragItemFila.current - 1 && dragOverItemColumn.current == dragItemColumn.current){
+    }else if(dragOverItemFila.current == dragItemFila.current - 1 && dragOverItemColumn.current == dragItemColumn.current 
+        && copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] == null){
+            console.log("dentro")
         setTurn(!turn)
         setFirstMoveBlack(false)
+        return dragOverItemColumn = dragOverItemColumn.current
+    }
+
+    if(dragOverItemColumn.current == dragItemColumn.current + 1 || dragOverItemColumn.current == dragItemColumn.current - 1 && dragOverItemFila.current == dragItemFila.current - 1 && copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] != null){
         return dragOverItemColumn = dragOverItemColumn.current
     }
      

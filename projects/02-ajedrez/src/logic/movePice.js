@@ -8,7 +8,7 @@ export const comprobarPieza = (pieza,dragOverItemColumn,dragItemColumn,copyBoard
             // CASO DE LAS PIEZAS BLANCAS
             case '♙':
               
-                return moveWhitePeon(dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn,firstMoveWhite,setFirstMoveWhite,setTurn,turn)
+                return moveWhitePeon(dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn,firstMoveWhite,setFirstMoveWhite,setTurn,turn, copyBoardList)
                 
             case '♖':
                 
@@ -36,7 +36,7 @@ export const comprobarPieza = (pieza,dragOverItemColumn,dragItemColumn,copyBoard
             // PIEZAS NEGRAS
             case '♟':
                 
-                return moveBlackPeon(dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn,firstMoveBlack, setFirstMoveBlack,setTurn,turn)
+                return moveBlackPeon(dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn,firstMoveBlack, setFirstMoveBlack,setTurn,turn,copyBoardList)
                 
             case '♜' :
                 

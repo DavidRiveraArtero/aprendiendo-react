@@ -1,6 +1,6 @@
 import { useRef } from "react"
 
-export function BoardComponent({fila,columna,board,dragStart,dragEnter,drop}){
+export function BoardComponent({fila,columna,board,dragStart,dragEnter,drop,piezasNegras}){
     let className=""
     let resu = ""
     
@@ -11,7 +11,16 @@ export function BoardComponent({fila,columna,board,dragStart,dragEnter,drop}){
         : resu = index % 2 == 0 ? "impar" : "par" 
     
     className = `casilla ${resu}`
-    
+   
+                
+    for(var x = 0;x<piezasNegras.length;x++){
+        if(board[fila][columna]== piezasNegras[x]){
+            className += " colorB"
+        }
+    }
+  
+
+
     return(
         <div className={className} 
              draggable 
