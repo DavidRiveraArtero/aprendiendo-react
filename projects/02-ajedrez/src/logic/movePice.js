@@ -1,4 +1,4 @@
-import { moveWhitePeon, moveAlfil, moveTower, moveQueen, moveKing, moveHorse, moveBlackPeon } from "./reusableMove"
+import { movePeon, moveAlfil, moveTower, moveQueen, moveKing, moveHorse } from "./reusableMove"
 export const comprobarPieza = (pieza,dragOverItemColumn,dragItemColumn,copyBoardList,firstMoveWhite,setFirstMoveWhite,dragOverItemFila,dragItemFila, turn, setTurn,firstMoveBlack, setFirstMoveBlack) => {
 
 
@@ -8,7 +8,7 @@ export const comprobarPieza = (pieza,dragOverItemColumn,dragItemColumn,copyBoard
             // CASO DE LAS PIEZAS BLANCAS
             case '♙':
               
-                return moveWhitePeon(dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn,firstMoveWhite,setFirstMoveWhite,setTurn,turn, copyBoardList)
+                return movePeon(dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn,firstMoveWhite,setFirstMoveWhite,setTurn,turn, copyBoardList,pieza,setFirstMoveBlack,firstMoveBlack)
                 
             case '♖':
                 
@@ -16,7 +16,7 @@ export const comprobarPieza = (pieza,dragOverItemColumn,dragItemColumn,copyBoard
                
             case '♗':
                 
-                return moveAlfil(dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn,setTurn,turn)
+                return moveAlfil(dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn,setTurn,turn,copyBoardList)
     
             case '♕':
                 
@@ -36,7 +36,7 @@ export const comprobarPieza = (pieza,dragOverItemColumn,dragItemColumn,copyBoard
             // PIEZAS NEGRAS
             case '♟':
                 
-                return moveBlackPeon(dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn,firstMoveBlack, setFirstMoveBlack,setTurn,turn,copyBoardList)
+                return movePeon(dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn,firstMoveWhite,setFirstMoveWhite,setTurn,turn, copyBoardList,pieza,setFirstMoveBlack,firstMoveBlack)
                 
             case '♜' :
                 
@@ -44,7 +44,7 @@ export const comprobarPieza = (pieza,dragOverItemColumn,dragItemColumn,copyBoard
     
             case '♝' :
                 
-                return moveAlfil(dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn,setTurn,turn)
+                return moveAlfil(dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn,setTurn,turn,copyBoardList)
     
             case '♛' :
              

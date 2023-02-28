@@ -1,4 +1,4 @@
-export const replacePosition = (copyBoardList,dragItemColumn, dragItemFila, dragOverItemColumn, dragOverItemFila, piezasBlanc, piezasNegras,dragItemContent,turn) => {
+export const replacePosition = (copyBoardList,dragItemColumn, dragItemFila, dragOverItemColumn, dragOverItemFila, piezasBlanc, piezasNegras,dragItemContent,turn,setTurn) => {
     
     if(copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] == null && dragOverItemColumn.current != null){
 
@@ -24,7 +24,7 @@ export const replacePosition = (copyBoardList,dragItemColumn, dragItemFila, drag
           
           copyBoardList[dragItemFila.current].splice(dragItemColumn.current,1,null)
           copyBoardList[dragOverItemFila.current].splice(dragOverItemColumn.current,1,dragItemContent)
-
+          setTurn(!turn)
         }
       }
     }
