@@ -9,7 +9,7 @@ function App() {
  
 
   const [turn,setTurn] = useState(true)
-
+  const [win,setWin] = useState(false)
   const piezasBlanc = ['♙','♖','♗','♕','♔','♘']
   const piezasNegras = ['♟','♜','♞','♛','♚','♝']
 
@@ -51,11 +51,15 @@ function App() {
   const drop = (e) =>{
     const copyBoardList = [...board2]
     const dragItemContent = copyBoardList[dragItemFila.current][dragItemColumn.current]
-   
+    let newCopyBoardList = null
     // SI queremos mover todas las fichas sin ninguna regla eliminar esta linea
     dragOverItemColumn.current = comprobarPieza(dragItemContent,dragOverItemColumn,dragItemColumn,copyBoardList,firstMoveWhite,setFirstMoveWhite,dragOverItemFila,dragItemFila,turn,setTurn, firstMoveBlack, setFirstMoveBlack) // PRUEBA
     
-    const newCopyBoardList = replacePosition(copyBoardList,dragItemColumn, dragItemFila, dragOverItemColumn, dragOverItemFila, piezasBlanc, piezasNegras,dragItemContent,turn)
+    if(!win){
+      newCopyBoardList = replacePosition(copyBoardList,dragItemColumn, dragItemFila, dragOverItemColumn, dragOverItemFila, piezasBlanc, piezasNegras,dragItemContent,turn,setWin,win)
+    }else{
+      turn ? window.alert("Ha ganado las blancas") : window.alert("Ha ganado las negras")
+    }
     
     dragItemColumn.current = null
     dragItemFila.current = null
@@ -64,6 +68,8 @@ function App() {
     setBoard2(newCopyBoardList)
     
   }
+
+
 
   
 

@@ -15,6 +15,7 @@ export const moveWhitePeon = (dragOverItemFila,dragItemFila,dragOverItemColumn,d
     }
     
     if(dragOverItemColumn.current == dragItemColumn.current + 1 || dragOverItemColumn.current == dragItemColumn.current - 1 && dragOverItemFila.current == dragItemFila.current + 1 && copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] != null){
+        setTurn(!turn)
         return dragOverItemColumn = dragOverItemColumn.current
     }
     
@@ -37,6 +38,7 @@ export const moveBlackPeon = (dragOverItemFila,dragItemFila,dragOverItemColumn,d
     }
 
     if(dragOverItemColumn.current == dragItemColumn.current + 1 || dragOverItemColumn.current == dragItemColumn.current - 1 && dragOverItemFila.current == dragItemFila.current - 1 && copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] != null){
+        setTurn(!turn)
         return dragOverItemColumn = dragOverItemColumn.current
     }
      
