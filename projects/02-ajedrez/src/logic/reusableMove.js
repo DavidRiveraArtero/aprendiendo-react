@@ -33,42 +33,60 @@ export const movePeon = (dragOverItemFila,dragItemFila,dragOverItemColumn,dragIt
 // FUNCION MOVE ALFIL
 export const moveAlfil = (dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn,setTurn,turn,copyBoardList) => {
     
-    if(dragOverItemFila.current != dragItemFila.current && 
-        dragItemColumn.current != dragOverItemColumn.current
-      ){
-        let inter = 1
+    
+
+    if(dragOverItemFila.current != dragItemFila.current && dragItemColumn.current != dragOverItemColumn.current){
+        
+        let diagDer = 0
         let inter2 = 1
-        for(var x = dragItemFila.current + 1; x < copyBoardList.length;x++){
-            if(x <= dragOverItemFila.current){
-                console.log(copyBoardList[x])
-                for(var y = dragItemColumn.current + inter; y<copyBoardList.length;y++){
-                    if(copyBoardList[x][y] != null && y < dragOverItemColumn.current ){
-                        return     
-                    }
+        /*
+        for(var x = dragOverItemFila.current; x > 0;x--){
+            
+            if(x >= dragItemFila.current){
+
+                let dia = dragOverItemColumn.current - diagDer
+
+                if(dia > dragItemColumn.current){
+                    for(var y = dia; y >= dragItemColumn.current;y--){
+                        //console.log("X: ", x , "Position Y: ", y , "contenido: ", copyBoardList[x][y])
+                        if(copyBoardList[x][y] != null){
+                            return
+                        }
+                        y--
+                        
+                    }    
+                }else{
+                    for(var y = dia; y < dragItemColumn.current;y++){
+                        //console.log("X: ", x , "Position Y: ", y , "contenido: ", copyBoardList[x][y])
+                       
+                        if(copyBoardList[x][y] != null){
+                            return
+                        }
+                        y++
+                        
+                    }    
                 }
-                inter++
+                
+                diagDer++
             }  
         }
-
-
-       for(var x = dragItemFila.current - 1; x > dragOverItemFila.current;x--){
-            console.log("aaaaa")
+        */
+        for(var x = dragItemFila.current - 1; x > dragOverItemFila.current;x--){
+            
             if(x >= dragOverItemFila.current){
-                console.log(copyBoardList[x])
-                for(var y = dragItemColumn.current - inter2; y<copyBoardList.length;y--){
+            
+                for(var y = dragItemColumn.current - inter2; y > 0;y--){
+                   
                     if(copyBoardList[x][y] != null && y > dragOverItemColumn.current ){
-                     
+                        
                         return     
                     }
                 }
                 inter2++
-            }else{
-           
-            }  
+            }
         }
         
-
-
+        
 
         if((dragItemColumn.current + ( dragOverItemFila.current - dragItemFila.current)) == dragOverItemColumn.current){
             setTurn(!turn)
@@ -77,7 +95,7 @@ export const moveAlfil = (dragOverItemFila,dragItemFila,dragOverItemColumn,dragI
             setTurn(!turn)
             return dragOverItemColumn = dragOverItemColumn.current
         } 
-     }  
+    }  
 } 
 
 // FUNCTION MOVE TOWER
@@ -135,7 +153,7 @@ export const moveQueen = (dragOverItemFila,dragItemFila,dragOverItemColumn,dragI
         dragItemColumn.current != dragOverItemColumn.current
       ){
         
-        return moveAlfil(dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn,setTurn,turn)
+        return moveAlfil(dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn,setTurn,turn,copyBoardList)
       }else{
         
 
@@ -190,7 +208,3 @@ export const moveHorse = (dragOverItemFila,dragItemFila,dragOverItemColumn,dragI
         }
     }
 }
-
-const colliderDetected = (copyBoardList) => {
-    return false
-} 

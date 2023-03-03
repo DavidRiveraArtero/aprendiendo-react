@@ -1,10 +1,12 @@
-import { useState,useRef } from 'react'
+import { useState, useRef } from 'react'
 import './App.css'
+
 import { BoardComponent } from './components/board/boardComponent'
 import { Play_menu } from './components/play_board_menu/play_menu'
 import { TimeBoard } from './components/timeBoard/timeBoard'
 import { comprobarPieza } from './logic/movePice'
 import { replacePosition } from './logic/replacePosition'
+
 function App() {
  
 
@@ -22,7 +24,7 @@ function App() {
                                         new Array(8).fill(null),
                                         ['♟','♟','♟','♟','♟','♟','♟','♟'],
                                         ['♜','♞','♝','♛','♚','♝','♞','♜']]
-                                        )
+                                      )
 
 
   // DRAG AND DROP
@@ -53,7 +55,7 @@ function App() {
     const dragItemContent = copyBoardList[dragItemFila.current][dragItemColumn.current]
     
     // SI queremos mover todas las fichas sin ninguna regla eliminar esta linea
-    dragOverItemColumn.current = comprobarPieza(dragItemContent,dragOverItemColumn,dragItemColumn,copyBoardList,firstMoveWhite,setFirstMoveWhite,dragOverItemFila,dragItemFila,turn,setTurn, firstMoveBlack, setFirstMoveBlack) // PRUEBA
+    dragOverItemColumn.current = comprobarPieza(dragItemContent,dragOverItemColumn,dragItemColumn,copyBoardList,firstMoveWhite,setFirstMoveWhite,dragOverItemFila,dragItemFila,turn,setTurn, firstMoveBlack, setFirstMoveBlack, piezasBlanc, piezasNegras) // PRUEBA
     
     const newCopyBoardList = replacePosition(copyBoardList,dragItemColumn, dragItemFila, dragOverItemColumn, dragOverItemFila, piezasBlanc, piezasNegras,dragItemContent,turn,setTurn)
     
