@@ -1,4 +1,5 @@
-export const replacePosition = (copyBoardList,dragItemColumn, dragItemFila, dragOverItemColumn, dragOverItemFila, piezasBlanc, piezasNegras,dragItemContent,turn,setTurn) => {
+import { checkWinner } from "./checkWin"
+export const replacePosition = (copyBoardList,dragItemColumn, dragItemFila, dragOverItemColumn, dragOverItemFila, piezasBlanc, piezasNegras,dragItemContent,turn) => {
     
     if(copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] == null && dragOverItemColumn.current != null){
 
@@ -6,31 +7,19 @@ export const replacePosition = (copyBoardList,dragItemColumn, dragItemFila, drag
       copyBoardList[dragOverItemFila.current].splice(dragOverItemColumn.current,1,dragItemContent)
      
     }
-
-    if(turn){
-      for(var x = 0; x<piezasNegras.length;x++){
- 
-        if(copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] == piezasNegras[x] && dragOverItemColumn.current != null){
-          
-          copyBoardList[dragItemFila.current].splice(dragItemColumn.current,1,null)
-          copyBoardList[dragOverItemFila.current].splice(dragOverItemColumn.current,1,dragItemContent)
-
-        }
+    const turnPieza = turn ? piezasBlanc : piezasNegras
+    const deletePieza = turn ? piezasNegras : piezasBlanc
+    var checkWin
+    for(var x = 0; x<turnPieza.length;x++){
+      if(copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] == deletePieza[x] && dragOverItemColumn.current != null){
+        checkWin = checkWinner(copyBoardList,dragOverItemFila,dragOverItemColumn,deletePieza,turn)
         
-        if(copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] == piezasNegras[4]){
-          setWin(!win)
-        }
+        copyBoardList[dragItemFila.current].splice(dragItemColumn.current,1,null)
+        copyBoardList[dragOverItemFila.current].splice(dragOverItemColumn.current,1,dragItemContent)
       }
-    }else{
-      for(var x = 0; x<piezasBlanc.length;x++){
- 
-        if(copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] == piezasBlanc[x] && dragOverItemColumn.current != null){
-          
-          copyBoardList[dragItemFila.current].splice(dragItemColumn.current,1,null)
-          copyBoardList[dragOverItemFila.current].splice(dragOverItemColumn.current,1,dragItemContent)
-          setTurn(!turn)
-        }
-      }
+      
     }
-    return copyBoardList
+    
+    
+    return [copyBoardList,checkWin]
   }

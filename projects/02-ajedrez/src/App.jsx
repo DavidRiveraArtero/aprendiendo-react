@@ -6,12 +6,14 @@ import { Play_menu } from './components/play_board_menu/play_menu'
 import { TimeBoard } from './components/timeBoard/timeBoard'
 import { comprobarPieza } from './logic/movePice'
 import { replacePosition } from './logic/replacePosition'
+import { WinComp } from './components/winComp'
 
 function App() {
  
 
   const [turn,setTurn] = useState(true)
-  const [win,setWin] = useState(false)
+  const [win,setWin] = useState(null)
+ 
   const piezasBlanc = ['♙','♖','♗','♕','♔','♘']
   const piezasNegras = ['♟','♜','♞','♛','♚','♝']
 
@@ -52,29 +54,31 @@ function App() {
 
   const drop = (e) =>{
     const copyBoardList = [...board2]
+    const copyBoardListCheck = [...board2]
     const dragItemContent = copyBoardList[dragItemFila.current][dragItemColumn.current]
     
     // SI queremos mover todas las fichas sin ninguna regla eliminar esta linea
     dragOverItemColumn.current = comprobarPieza(dragItemContent,dragOverItemColumn,dragItemColumn,copyBoardList,firstMoveWhite,setFirstMoveWhite,dragOverItemFila,dragItemFila,turn,setTurn, firstMoveBlack, setFirstMoveBlack, piezasBlanc, piezasNegras) // PRUEBA
     
-    const newCopyBoardList = replacePosition(copyBoardList,dragItemColumn, dragItemFila, dragOverItemColumn, dragOverItemFila, piezasBlanc, piezasNegras,dragItemContent,turn,setTurn)
-    
-    dragItemColumn.current = null
-    dragItemFila.current = null
-    dragOverItemFila.current = null
-    dragOverItemColumn.current = null
-    setBoard2(newCopyBoardList)
-    
+    setBoard2(()=>{
+      
+      const newCopyBoardList = replacePosition(copyBoardList,dragItemColumn, dragItemFila, dragOverItemColumn, dragOverItemFila, piezasBlanc, piezasNegras,dragItemContent,turn,setTurn)
+      setWin(() => {
+        return newCopyBoardList[1]
+      })
+      
+      return newCopyBoardList[0]
+    })
+
   }
 
-
-
   
-
+  
 
   return (
     <>
       <Play_menu></Play_menu>
+      <WinComp win={win} turn={turn} setWin={setWin}/>
       <main className='board'>
         <section className='game'>
           {

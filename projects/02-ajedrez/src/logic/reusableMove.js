@@ -6,8 +6,8 @@ export const movePeon = (dragOverItemFila,dragItemFila,dragOverItemColumn,dragIt
     && copyBoardList[dragOverItemFila.current][dragOverItemColumn.current]== null : dragOverItemFila.current == dragItemFila.current - 1 && dragOverItemColumn.current == dragItemColumn.current 
     && copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] == null
 
-    const cond3 = pieza == '♙' ? dragOverItemColumn.current == dragItemColumn.current + 1 || dragOverItemColumn.current == dragItemColumn.current - 1 && dragOverItemFila.current == dragItemFila.current + 1 && copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] != null :
-    dragOverItemColumn.current == dragItemColumn.current + 1 || dragOverItemColumn.current == dragItemColumn.current - 1 && dragOverItemFila.current == dragItemFila.current - 1 && copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] != null 
+    const cond3 = pieza == '♙' ? dragOverItemColumn.current == dragItemColumn.current + 1 || dragOverItemColumn.current == dragItemColumn.current - 1 && dragOverItemFila.current == dragItemFila.current + 1 :
+    dragOverItemColumn.current == dragItemColumn.current + 1 || dragOverItemColumn.current == dragItemColumn.current - 1 && dragOverItemFila.current == dragItemFila.current - 1 
 
     
     if(cond){    
@@ -23,8 +23,13 @@ export const movePeon = (dragOverItemFila,dragItemFila,dragOverItemColumn,dragIt
     }
     
     if(cond3){
-        setTurn(!turn)
-        return dragOverItemColumn = dragOverItemColumn.current
+        if(copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] != null){
+            setTurn(!turn)
+            return dragOverItemColumn = dragOverItemColumn.current
+        }else{
+            return
+        }
+       
     }
     
 }
