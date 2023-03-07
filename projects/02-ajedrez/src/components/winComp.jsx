@@ -1,7 +1,5 @@
 
-export function WinComp({win,turn,setWin}){
-
-
+export function WinComp({win,turn,setWin,setBoard2,tunr,setTurn}){
 
     if(win == null){
         return
@@ -10,7 +8,15 @@ export function WinComp({win,turn,setWin}){
 
     const resetGame = () => {
         setWin()
-        console.log(win)
+        setTurn(!turn)
+        setBoard2([["♖","♘","♗","♕",'♔','♗','♘','♖'],
+                  ['♙','♙','♙','♙','♙','♙','♙','♙'],
+                  new Array(8).fill(null),
+                  new Array(8).fill(null),
+                  new Array(8).fill(null),
+                  new Array(8).fill(null),
+                  ['♟','♟','♟','♟','♟','♟','♟','♟'],
+                  ['♜','♞','♝','♛','♚','♝','♞','♜']])
     }
 
     return (

@@ -1,5 +1,5 @@
 import { movePeon, moveAlfil, moveTower, moveQueen, moveKing, moveHorse } from "./reusableMove"
-export const comprobarPieza = (pieza,dragOverItemColumn,dragItemColumn,copyBoardList,firstMoveWhite,setFirstMoveWhite,dragOverItemFila,dragItemFila, turn, setTurn,firstMoveBlack, setFirstMoveBlack) => {
+export const comprobarPieza = (pieza,dragOverItemColumn,dragItemColumn,copyBoardList,firstMoveWhite,setFirstMoveWhite,dragOverItemFila,dragItemFila, turn, setTurn,firstMoveBlack, setFirstMoveBlack, piezasBlanc, piezasNegras) => {
     
 
     if(turn){
@@ -16,7 +16,7 @@ export const comprobarPieza = (pieza,dragOverItemColumn,dragItemColumn,copyBoard
                
             case '♗':
                 
-                return moveAlfil(dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn,setTurn,turn,copyBoardList)
+                return moveAlfil(dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn,setTurn,turn,copyBoardList,piezasBlanc,piezasNegras)
     
             case '♕':
                 
@@ -44,7 +44,7 @@ export const comprobarPieza = (pieza,dragOverItemColumn,dragItemColumn,copyBoard
     
             case '♝' :
                 
-                return moveAlfil(dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn,setTurn,turn,copyBoardList)
+                return moveAlfil(dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn,setTurn,turn,copyBoardList,piezasBlanc,piezasNegras)
     
             case '♛' :
              

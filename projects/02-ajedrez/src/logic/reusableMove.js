@@ -36,54 +36,54 @@ export const movePeon = (dragOverItemFila,dragItemFila,dragOverItemColumn,dragIt
 
 
 // FUNCION MOVE ALFIL
-export const moveAlfil = (dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn,setTurn,turn,copyBoardList) => {
+export const moveAlfil = (dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn,setTurn,turn,copyBoardList,piezasBlanc,piezasNegras) => {
     
-    
-
+    const pieza = turn ? piezasNegras : piezasBlanc
+    console.log(pieza)
     if(dragOverItemFila.current != dragItemFila.current && dragItemColumn.current != dragOverItemColumn.current){
         
         let diagDer = 0
         let inter2 = 1
-        /*
+        let encontrado
         for(var x = dragOverItemFila.current; x > 0;x--){
             
-            if(x >= dragItemFila.current){
+            if(x > dragItemFila.current){
 
                 let dia = dragOverItemColumn.current - diagDer
 
                 if(dia > dragItemColumn.current){
-                    for(var y = dia; y >= dragItemColumn.current;y--){
-                        //console.log("X: ", x , "Position Y: ", y , "contenido: ", copyBoardList[x][y])
-                        if(copyBoardList[x][y] != null){
-                            return
-                        }
-                        y--
-                        
-                    }    
+                    console.log("DENTRO IF")
+                    encontrado = colisionAlfil(dia,dragItemColumn,copyBoardList,dragOverItemColumn,dragOverItemFila,pieza,x)
+
+                    if(!encontrado){
+                        console.log("dentro: ", encontrado)
+                        return
+                    }
+                    
+                    
                 }else{
-                    for(var y = dia; y < dragItemColumn.current;y++){
-                        //console.log("X: ", x , "Position Y: ", y , "contenido: ", copyBoardList[x][y])
+                   
+                    console.log("DENTRO ELSE")
+                    encontrado = colisionAlfil(dia,dragItemColumn,copyBoardList,dragOverItemColumn,dragOverItemFila,pieza,x)
+                         
+                    if(!encontrado){
                        
-                        if(copyBoardList[x][y] != null){
-                            return
-                        }
-                        y++
-                        
-                    }    
+                        return
+                    }  
                 }
                 
                 diagDer++
             }  
         }
-        */
+        
         for(var x = dragItemFila.current - 1; x > dragOverItemFila.current;x--){
             
             if(x >= dragOverItemFila.current){
             
                 for(var y = dragItemColumn.current - inter2; y > 0;y--){
                    
-                    if(copyBoardList[x][y] != null && y > dragOverItemColumn.current ){
-                        
+                    if(copyBoardList[x][y] != null && y > dragOverItemColumn.current && copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] != pieza[z]){
+                        console.log("dentro")
                         return     
                     }
                 }
@@ -212,4 +212,26 @@ export const moveHorse = (dragOverItemFila,dragItemFila,dragOverItemColumn,dragI
             return dragOverItemColumn = dragOverItemColumn.current
         }
     }
+}
+
+
+const colisionAlfil = (dia,dragItemColumn,copyBoardList,dragOverItemColumn,dragOverItemFila,pieza,x) => {
+    for(var y = dia; y >= dragItemColumn.current;y--){
+        //console.log("X: ", x , "Position Y: ", y , "contenido: ", copyBoardList[x][y])
+        
+        for(var z = 0; z < pieza.length;z++){
+            
+            if(copyBoardList[x][y] != null && copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] != pieza[z]){
+               
+                return false
+                console.log("dentro if: ", copyBoardList[x][y] != null, "\n copyBorad:", copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] != pieza[z])
+                
+            }else if(copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] == pieza[z] || copyBoardList[x][y] == null){
+                console.log("dentro else if")
+            }
+            
+        }   
+        y--
+    }
+    return true
 }

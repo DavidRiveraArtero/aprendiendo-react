@@ -1,5 +1,3 @@
-import { useRef } from "react"
-
 export function BoardComponent({fila,columna,board,dragStart,dragEnter,drop,piezasNegras}){
     let className=""
     let resu = ""
