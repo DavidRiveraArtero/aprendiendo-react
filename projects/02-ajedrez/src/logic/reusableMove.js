@@ -39,57 +39,68 @@ export const movePeon = (dragOverItemFila,dragItemFila,dragOverItemColumn,dragIt
 export const moveAlfil = (dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn,setTurn,turn,copyBoardList,piezasBlanc,piezasNegras) => {
     
     const pieza = turn ? piezasNegras : piezasBlanc
-    console.log(pieza)
+
     if(dragOverItemFila.current != dragItemFila.current && dragItemColumn.current != dragOverItemColumn.current){
         
         let diagDer = 0
-        let inter2 = 1
+        let inter2 = 0
         let encontrado
+
         for(var x = dragOverItemFila.current; x > 0;x--){
             
-            if(x > dragItemFila.current){
+            let dia = dragOverItemColumn.current - diagDer
 
-                let dia = dragOverItemColumn.current - diagDer
+            if(dia > dragItemColumn.current){
+                
+                encontrado = colisionAlfilDer(copyBoardList,dragOverItemColumn,dragOverItemFila,pieza,dragItemFila)
 
-                if(dia > dragItemColumn.current){
-                    console.log("DENTRO IF")
-                    encontrado = colisionAlfil(dia,dragItemColumn,copyBoardList,dragOverItemColumn,dragOverItemFila,pieza,x)
-
-                    if(!encontrado){
-                        console.log("dentro: ", encontrado)
-                        return
-                    }
+                if(!encontrado){
                     
-                    
-                }else{
-                   
-                    console.log("DENTRO ELSE")
-                    encontrado = colisionAlfil(dia,dragItemColumn,copyBoardList,dragOverItemColumn,dragOverItemFila,pieza,x)
-                         
-                    if(!encontrado){
-                       
-                        return
-                    }  
+                    return
                 }
                 
-                diagDer++
-            }  
+                
+            }else{
+                encontrado = colisionAlfilIzq(copyBoardList,dragOverItemColumn,dragOverItemFila,pieza,dragItemFila)
+                        
+                if(!encontrado){
+                    
+                    return
+                }  
+            }
+            
+            diagDer++
+             
         }
         
-        for(var x = dragItemFila.current - 1; x > dragOverItemFila.current;x--){
-            
-            if(x >= dragOverItemFila.current){
-            
-                for(var y = dragItemColumn.current - inter2; y > 0;y--){
-                   
-                    if(copyBoardList[x][y] != null && y > dragOverItemColumn.current && copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] != pieza[z]){
-                        console.log("dentro")
-                        return     
-                    }
+        for(var x = dragOverItemFila.current; x < dragItemFila.current;x++){
+            let dia = dragOverItemColumn.current + inter2
+            if(dia > dragItemColumn.current){
+                console.log("AAA")
+                encontrado = colisionAlfilDerDOWN(copyBoardList,dragOverItemColumn,dragOverItemFila,pieza,dragItemFila)
+
+                if(!encontrado){
+                    
+                    return
                 }
-                inter2++
+                
+                
+            }else{
+                console.log("AAA")
+                encontrado = colisionAlfilIzqDOWN(copyBoardList,dragOverItemColumn,dragOverItemFila,pieza,dragItemFila)
+                        
+                if(!encontrado){
+                    
+                    return
+                }  
             }
+            
+            inter2++
         }
+
+            
+            
+        
         
         
 
@@ -214,24 +225,93 @@ export const moveHorse = (dragOverItemFila,dragItemFila,dragOverItemColumn,dragI
     }
 }
 
+// COLISIONES ALFIL
 
-const colisionAlfil = (dia,dragItemColumn,copyBoardList,dragOverItemColumn,dragOverItemFila,pieza,x) => {
-    for(var y = dia; y >= dragItemColumn.current;y--){
-        //console.log("X: ", x , "Position Y: ", y , "contenido: ", copyBoardList[x][y])
+const colisionAlfilDer = (copyBoardList,dragOverItemColumn,dragOverItemFila,pieza,dragItemFila) => {
+    let posI = dragOverItemColumn.current
+    for(var x = dragOverItemFila.current; x > dragItemFila.current; x--){
         
-        for(var z = 0; z < pieza.length;z++){
-            
-            if(copyBoardList[x][y] != null && copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] != pieza[z]){
-               
+        for(var y = 0; y < pieza.length;y++){
+           
+            if(copyBoardList[x][posI] != null && copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] != pieza[y]){
+                console.log(copyBoardList[x][posI])
                 return false
-                console.log("dentro if: ", copyBoardList[x][y] != null, "\n copyBorad:", copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] != pieza[z])
-                
-            }else if(copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] == pieza[z] || copyBoardList[x][y] == null){
-                console.log("dentro else if")
+            }else if(copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] == pieza[y]){
+                return true
             }
             
-        }   
-        y--
+        }
+        posI--
+       
     }
+
     return true
 }
+
+const colisionAlfilIzq = (copyBoardList,dragOverItemColumn,dragOverItemFila,pieza,dragItemFila) =>{
+    let posI = dragOverItemColumn.current
+    for(var x = dragOverItemFila.current; x > dragItemFila.current; x--){
+        
+        for(var y = 0; y < pieza.length;y++){
+           
+            if(copyBoardList[x][posI] != null && copyBoardList[x][dragOverItemColumn.current] != pieza[y]){
+                console.log(copyBoardList[x][dragOverItemColumn.current] != pieza[y])
+                return false
+            }else if(copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] == pieza[y]){
+                return true
+            }
+            
+        }
+        posI++
+       
+    }
+
+    return true
+}
+
+const colisionAlfilIzqDOWN = (copyBoardList,dragOverItemColumn,dragOverItemFila,pieza,dragItemFila) =>{
+    let posI = dragOverItemColumn.current
+    console.log("DENTRO IZQ DOWN")
+    for(var x = dragOverItemFila.current; x < dragItemFila.current; x++){
+        
+        for(var y = 0; y < pieza.length;y++){
+           
+            if(copyBoardList[x][posI] != null && copyBoardList[x][dragOverItemColumn.current] != pieza[y]){
+                console.log(copyBoardList[x][dragOverItemColumn.current] != pieza[y])
+                return false
+            }else if(copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] == pieza[y]){
+                console.log(copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] == pieza[y])
+                return true
+            }
+            
+        }
+        posI++
+       
+    }
+
+    return true
+}
+
+const colisionAlfilDerDOWN = (copyBoardList,dragOverItemColumn,dragOverItemFila,pieza,dragItemFila) =>{
+    let posI = dragOverItemColumn.current
+    console.log("DENTRO IZQ DOWN")
+    for(var x = dragOverItemFila.current; x < dragItemFila.current; x++){
+        
+        for(var y = 0; y < pieza.length;y++){
+           
+            if(copyBoardList[x][posI] != null && copyBoardList[x][dragOverItemColumn.current] != pieza[y]){
+                console.log(copyBoardList[x][dragOverItemColumn.current] != pieza[y])
+                return false
+            }else if(copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] == pieza[y]){
+                console.log(copyBoardList[dragOverItemFila.current][dragOverItemColumn.current] == pieza[y])
+                return true
+            }
+            
+        }
+        posI--
+       
+    }
+
+    return true
+}
+
