@@ -20,7 +20,7 @@ export const comprobarPieza = (pieza,dragOverItemColumn,dragItemColumn,copyBoard
     
             case '♕':
                 
-                return moveQueen(dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn,copyBoardList,setTurn,turn)
+                return moveQueen(dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn,copyBoardList,setTurn,turn,piezasBlanc,piezasNegras)
                 
             case '♔':
                 
@@ -48,7 +48,7 @@ export const comprobarPieza = (pieza,dragOverItemColumn,dragItemColumn,copyBoard
     
             case '♛' :
              
-                return moveQueen(dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn,copyBoardList,setTurn,turn)
+                return moveQueen(dragOverItemFila,dragItemFila,dragOverItemColumn,dragItemColumn,copyBoardList,setTurn,turn,piezasBlanc,piezasNegras)
     
             case '♚' :
               
