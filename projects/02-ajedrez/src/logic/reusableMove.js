@@ -126,8 +126,8 @@ export const moveTower = (dragOverItemFila,dragItemFila,dragOverItemColumn,dragI
         }
     } 
     // COLISION VERTICAL NEGATIVO
-    for(var x = dragItemFila.current - 1; x > dragOverItemFila.current; x++){
-       
+    for(var x = dragItemFila.current - 1; x > dragOverItemFila.current; x--){
+        
         if(copyBoardList[x][dragOverItemColumn.current] != null){
 
             return
@@ -145,7 +145,7 @@ export const moveTower = (dragOverItemFila,dragItemFila,dragOverItemColumn,dragI
     }
 
     // COLISION HORIZONTAL NEGATIVO
-    for(var x = dragItemColumn.current - 1; x > dragOverItemColumn.current; x++){
+    for(var x = dragItemColumn.current - 1; x > dragOverItemColumn.current; x--){
       
     
         if(copyBoardList[dragItemFila.current][x] != null){
@@ -235,7 +235,7 @@ const colisionAlfilDer = (copyBoardList,dragOverItemColumn,dragOverItemFila,piez
         for(var y = 0; y < pieza.length;y++){
            
             if(copyBoardList[x][posI] != null && copyBoardList[x][posI] != pieza[y]){
-                console.log(copyBoardList[x][posI])
+               
                 exist = true
                
             }else{
@@ -260,7 +260,7 @@ const colisionAlfilIzq = (copyBoardList,dragOverItemColumn,dragOverItemFila,piez
         for(var y = 0; y < pieza.length;y++){
            
             if(copyBoardList[x][posI] != null && copyBoardList[x][posI] != pieza[y]){
-                console.log(copyBoardList[x][posI])
+               
                 exist = true
                
             }else{
@@ -282,13 +282,12 @@ const colisionAlfilIzq = (copyBoardList,dragOverItemColumn,dragOverItemFila,piez
 const colisionAlfilIzqDOWN = (copyBoardList,dragOverItemColumn,dragOverItemFila,pieza,dragItemFila) =>{
     let posI = dragOverItemColumn.current
     let exist = false
-    console.log("DENTRO IZQ DOWN")
+   
     for(var x = dragOverItemFila.current; x < dragItemFila.current; x++){
         
         for(var y = 0; y < pieza.length;y++){
            
             if(copyBoardList[x][posI] != null && copyBoardList[x][posI] != pieza[y]){
-                console.log(copyBoardList[x][posI])
                 exist = true
                
             }else{
@@ -315,10 +314,12 @@ const colisionAlfilDerDOWN = (copyBoardList,dragOverItemColumn,dragOverItemFila,
         for(var y = 0; y < pieza.length;y++){
            
             if(copyBoardList[x][posI] != null && copyBoardList[x][posI] != pieza[y]){
-                console.log(copyBoardList[x][posI])
+               
+               
                 exist = true
                
             }else{
+               
                 exist = false
             }
             
