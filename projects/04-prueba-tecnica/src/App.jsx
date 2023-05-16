@@ -2,11 +2,11 @@
 import { useEffect, useState } from 'react'
 
 const CAT_ENDPOINT_RANDOM_FACT = 'https://catfact.ninja/fact'
-//const CAT_ENDPOINT_IMG = `https://cataas.com/cat/says/${firstWord}?size=:size&color=:color&json=true`
-
+const prefixURL = `https://cataas.com/`
 export function App () {
 
   const [fact, setFact] = useState()
+  const [img, setImg] = useState()
 
   useEffect(() => {
 
@@ -16,16 +16,24 @@ export function App () {
         const { fact } = data
         
         const firstWord = fact.split(' ', 1).join(' ') // FORMA MAS RAPIDA donde 1 sera solo la primera palabra
-        const firstThreWord = fact.split(' ').slice(0,3).join(' ') // OTRA FORMA
+        
         setFact(firstWord)
+
+        fetch(`https://cataas.com/cat/says/${firstWord}?size=:size&color=:color&json=true`)
+          .then(resp => resp.json())
+          .then(response => {
+            const {url} = response
+            setImg(url)
+          })
       })
 
   }, []) // SOLO SE EJECUTA LA PRIMERA VEZ
 
   return (
     <>
-      <h1>Hola Mundo 2</h1>
+      <h1>Api Gatos</h1>
       {fact && <p>{fact}</p>}
+      {img && <img src={`${prefixURL}${img}`} alt={`Image extracted`}/>}
     </>
   )
 }
