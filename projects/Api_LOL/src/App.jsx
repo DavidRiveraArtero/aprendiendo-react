@@ -13,7 +13,7 @@ function App() {
   const [imgIcon, setImgIcon] = useState("")
 
   // API
-  const apiKey = "RGAPI-5bffe8b3-f697-44b0-b53b-a26989539608"
+  const apiKey = ""
   const refApi = "https://euw1.api.riotgames.com/"
   const refRegionApi = "https://europe.api.riotgames.com/"
 
@@ -25,25 +25,21 @@ function App() {
 
 
     const dataFetch = async(dateMatches) => {
-       const data = await(
+      const data = await(
         await fetch(`https://europe.api.riotgames.com/lol/match/v5/matches/${dateMatches}?api_key=${apiKey}`
 
         )
-       ).json() 
+      ).json() 
+        
+      if(listGame.lenght == 0){
       
-       
-       if(listGame.lenght == 0){
-       
-        listGame.push(data.info)
-       }else{
-      
-        setListGame( current => [...current, data.info])
-
-       
-       }
+      listGame.push(data.info)
+      }else{
+    
+      setListGame( current => [...current, data.info])
 
       
-       
+      }
       
     }
     
