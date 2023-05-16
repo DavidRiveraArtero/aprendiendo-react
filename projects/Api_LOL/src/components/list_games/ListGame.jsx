@@ -11,50 +11,56 @@ export function List_Game({listGame}){
     return (
         <>
             <h1>Infor Partida</h1>
-            
-    
-            <div className="dropdown box_list_game">
-                <article className="list_game" style={{border:"1px solid red"}}>
-
-                    <h4 key={listGame.gameId}>Game mode: {listGame.gameMode}</h4>
-                    
-                    
-                    <section>
-                        {
-                            listGame.participants.map((part,indexPart) => {
-                                if(indexPart<=4){
-
-                                return (
-                                    <>
-                                        <p>{part.summonerName}</p>
-                                    </>
-                                )
-                                }
-                            })
-                            
-                        }
-                    </section>
-
-                    <section>
-                        {
-                            
-                            listGame.participants.map((part,indexPart) => {
-                                if(indexPart>=5){
-
-                                    return (
-                                        <>
-                                            <p>{part.summonerName}</p>
-                                        </>
-                                    )
-                                }
-                            })
-                            
-                        }
+            {
+       
+                listGame.map((info,index) => {
+                    return (
+                        <>
+                            <div className="dropdown box_list_game">
+                                <article className="list_game" style={{border:"1px solid red"}}>
                 
-                    </section>
-                </article>
-            </div>
-            
+                                    <h4 key={info.gameId}>Game mode: {info.gameMode}</h4>
+                                    
+                                   
+                                    <section>
+                                        {
+                                            info.participants.map((part,indexPart) => {
+                                                if(indexPart<=4){
+
+                                                return (
+                                                    <>
+                                                        <p>{part.summonerName}</p>
+                                                    </>
+                                                )
+                                                }
+                                            })
+                                            
+                                        }
+                                    </section>
+
+                                    <section>
+                                        {
+                                            
+                                            info.participants.map((part,indexPart) => {
+                                                if(indexPart>=5){
+
+                                                    return (
+                                                        <>
+                                                            <p>{part.summonerName}</p>
+                                                        </>
+                                                    )
+                                                }
+                                            })
+                                            
+                                        }
+                                
+                                    </section>
+                                </article>
+                            </div>
+                        </>
+                    )
+                })
+            }
         </>
     )
 }

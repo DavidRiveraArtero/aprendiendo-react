@@ -7,11 +7,10 @@ import { InfoPlayer } from './components/info_player/InfoPlayer'
 function App() {
 
   const inputRef = useRef()
-  const [sumonerName, setSumonerName] = useState("DaseZero")
+  const [sumonerName, setSumonerName] = useState()
   const [sumonerLevel, setSumonerLevel] = useState()
-  const [listGame, setListGame] = useState([{}])
+  const [listGame, setListGame] = useState([])
   const [imgIcon, setImgIcon] = useState("")
-  const [isFeching2, setIsFeching] = useState(false)
 
   // API
   const apiKey = "RGAPI-5bffe8b3-f697-44b0-b53b-a26989539608"
@@ -23,30 +22,48 @@ function App() {
 
 
   useEffect(()=>{
+
+
+    const dataFetch = async(dateMatches) => {
+       const data = await(
+        await fetch(`https://europe.api.riotgames.com/lol/match/v5/matches/${dateMatches}?api_key=${apiKey}`
+
+        )
+       ).json() 
+      
+       
+       if(listGame.lenght == 0){
+       
+        listGame.push(data.info)
+       }else{
+      
+        setListGame( current => [...current, data.info])
+
+       
+       }
+
+      
+       
+      
+    }
     
     fetch(refApi+api1).then(resp => resp.json())
       .then(date => {
         console.log("Primera Fetch")
         setSumonerName(date.name)
         setSumonerLevel(date.summonerLevel)
+      
         setImgIcon(`https://ddragon.leagueoflegends.com/cdn/13.9.1/img/profileicon/${date.profileIconId}.png`)
         fetch(refRegionApi+`lol/match/v5/matches/by-puuid/${date.puuid}/ids?type=normal&start=0&count=20&api_key=${apiKey}`)
           .then(respMatches => respMatches.json())
           .then(dateMatches => {
-            console.log("Segundo Fetch AAAAAA")
+            setListGame([])
             for(var x = 0; x<dateMatches.length; x++){
-              fetch(`https://europe.api.riotgames.com/lol/match/v5/matches/${dateMatches[x]}?api_key=${apiKey}`)
-                .then(match => match.json())
-                .then(mathdate => {
-                  if(listGame.length = 0){
-                    setListGame(mathdate.info)
-                  }else{
-                    setListGame( current => [...current, mathdate.info])
-                  }
-                  });
+                dataFetch(dateMatches[x])
             }
-            setIsFeching(true)
+          
           })
+         
       })
     
   },[sumonerName])
@@ -55,8 +72,8 @@ function App() {
     event.preventDefault()
     const value = inputRef.current.value
     setSumonerName(value)
-    console.log(listGame) 
-    setListGame([{}])
+    
+    console.log(listGame.length)
      
   }
 
@@ -78,7 +95,7 @@ function App() {
       </section>
 
      <section>
-        {isFeching2 == true && <List_Game listGame ={listGame}/>}
+        {listGame.length > 0 && <List_Game listGame={listGame}/>}
      </section>
       
       
