@@ -1,99 +1,73 @@
 import './App.css'
-import { useState,useEffect,useRef,setState } from 'react'
-
+import { useState,useEffect } from 'react'
+import { callApi } from './api/api_lol'
 
 import { List_Game } from './components/list_games/ListGame'
 import { InfoPlayer } from './components/info_player/InfoPlayer'
 function App() {
 
-  const inputRef = useRef()
-  const [sumonerName, setSumonerName] = useState()
+  
+  const [sumonerName, setSumonerName] = useState("")
   const [sumonerLevel, setSumonerLevel] = useState()
   const [listGame, setListGame] = useState([])
   const [imgIcon, setImgIcon] = useState("")
-
-  // API
-  const apiKey = ""
-  const refApi = "https://euw1.api.riotgames.com/"
-  const refRegionApi = "https://europe.api.riotgames.com/"
-
-  const api1 = `lol/summoner/v4/summoners/by-name/${sumonerName}?api_key=${apiKey}`
-  const api2 = `lol/match/v5/matches/by-puuid/hlXJzORD76w4NhNQ9dKOQPFSYqMtFw-W8Q2JHlR0dPDZm7jEasXnKos2IIj7z-TXIHbIBY7M5zbhtg/ids?type=normal&start=0&count=20&api_key=${apiKey}`
-
+  const [searchSummoner,setSearchSummoner] = useState("")
+  
 
   useEffect(()=>{
-
-
-    const dataFetch = async(dateMatches) => {
-      const data = await(
-        await fetch(`https://europe.api.riotgames.com/lol/match/v5/matches/${dateMatches}?api_key=${apiKey}`
-
-        )
-      ).json() 
-        
-      if(listGame.lenght == 0){
-      
-      listGame.push(data.info)
-      }else{
     
-      setListGame( current => [...current, data.info])
-
-      
-      }
-      
-    }
+    callApi(setSumonerLevel,setSumonerName,setImgIcon,setListGame,sumonerName,listGame)
     
-    fetch(refApi+api1).then(resp => resp.json())
-      .then(date => {
-        console.log("Primera Fetch")
-        setSumonerName(date.name)
-        setSumonerLevel(date.summonerLevel)
-      
-        setImgIcon(`https://ddragon.leagueoflegends.com/cdn/13.9.1/img/profileicon/${date.profileIconId}.png`)
-        fetch(refRegionApi+`lol/match/v5/matches/by-puuid/${date.puuid}/ids?type=normal&start=0&count=20&api_key=${apiKey}`)
-          .then(respMatches => respMatches.json())
-          .then(dateMatches => {
-            setListGame([])
-            for(var x = 0; x<dateMatches.length; x++){
-                dataFetch(dateMatches[x])
-            }
-          
-          })
-         
-      })
     
   },[sumonerName])
 
-  const search = (event) =>{
+  const submit = (event) =>{
     event.preventDefault()
-    const value = inputRef.current.value
-    setSumonerName(value)
-    
-    console.log(listGame.length)
-     
+    setSumonerName(searchSummoner)
+  }
+
+  const searchChange = (event) =>{
+    const newQuery = event.target.value
+    if(newQuery.startsWith(' ')) return
+    setSearchSummoner(event.target.value)
   }
 
   return (
     <>
-      <section className='section-header'>
-        <h1>API LOL</h1>
-        <form className='form' onSubmit={search}>
-          <input type='text' 
-                name="fname" 
+      <header className='section-header'>
+        <section className='logo_search'>
+          <h1>LeagueSearch</h1>
+          <form className='form' onSubmit={submit}>
+            <input type='text' 
+                name="fname"
+  
+                value={searchSummoner}
+                onChange={searchChange} 
                 placeholder='Nombre Invocador' 
-                ref={inputRef}/>
-          <button className='' type='submit'>Buscar</button>
-        </form>
-      </section>
-      
-      <section className='infoPlayer'>
-        <InfoPlayer summonerLevel={sumonerLevel} sumonerName={sumonerName} imgIcon= {imgIcon}/>
-      </section>
+            />
+            <button className='' type='submit'>Buscar</button>
+          </form>
+        </section>
+        <nav className='navbar'>
+          <a href='#'>Home</a>
+          <a href='#'>League of Legend</a>
+          <a href='#'>Valorant</a>
+          <a href='#'>Contact</a>
+        </nav>
+      </header>
+      <main>
+        <section className='infoPlayer'>
+          {sumonerName  != "" ? 
+            <InfoPlayer summonerLevel={sumonerLevel} sumonerName={sumonerName} imgIcon= {imgIcon}/> 
+            : 
+            <p>No hay resultados</p>
+          }
+        </section>
 
-     <section>
-        {listGame.length > 0 && <List_Game listGame={listGame}/>}
-     </section>
-      
+        <section>
+            {listGame.length > 0 && <List_Game listGame={listGame} sumonerName={sumonerName}/>}
+        </section>
+     </main>
       
     </>
   )

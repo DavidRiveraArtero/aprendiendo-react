@@ -1,66 +1,80 @@
-import { useState } from "react"
-export function List_Game({listGame}){
-    let css = ""
-    const [team1, setTeam1] = useState([])
-    const [team2, setTeam2] = useState([])
-    
+import './listGame.css'
+import { ListImg } from './listImg'
+export function List_Game({listGame,sumonerName}){
 
-
-    console.log("compònent",listGame.gameCreation)
-   
     return (
         <>
             <h1>Infor Partida</h1>
             {
        
                 listGame.map((info,index) => {
+                 
                     return (
                         <>
-                            <div className="dropdown box_list_game">
-                                <article className="list_game" style={{border:"1px solid red"}}>
+                            <div className="accordion box_list" id="according">
+                                <h2 class="accordion-header box_list_header" id="headingOne">
+                                    <button className="accordion-button" 
+                                            type="button" 
+                                            data-bs-toggle="collapse" 
+                                            data-bs-target={"#"+info.gameName} 
+                                            aria-expanded="false" 
+                                            aria-controls="collapseOne">
+
+                                        <p>{sumonerName}<span className="lowerCase"> ({info.gameMode})</span></p>
+
+                                    </button>
+                                </h2>
+                                <div id={info.gameName} 
+                                     className="accordion-collapse box_list_info collapse" 
+                                     aria-labelledby="headingOne" 
+                                     data-bs-parent="#accordionExample">
+                                
+                                    <article className="list_game">
                 
-                                    <h4 key={info.gameId}>Game mode: {info.gameMode}</h4>
-                                    
-                                   
-                                    <section>
-                                        {
-                                            info.participants.map((part,indexPart) => {
-                                                if(indexPart<=4){
-
-                                                return (
-                                                    <>
-                                                        <p>{part.summonerName}</p>
-                                                    </>
-                                                )
-                                                }
-                                            })
-                                            
-                                        }
-                                    </section>
-
-                                    <section>
-                                        {
-                                            
-                                            info.participants.map((part,indexPart) => {
-                                                if(indexPart>=5){
+                                        <section className="team1">
+                                            {
+                                                info.participants.map((part,indexPart) => {
+                                                    if(indexPart<=4){
 
                                                     return (
-                                                        <>
-                                                            <p>{part.summonerName}</p>
-                                                        </>
+                                      
+                                                       <ListImg part={part} summonerName={sumonerName}/>
+                                                           
                                                     )
-                                                }
-                                            })
-                                            
-                                        }
+                                                    }
+                                                })
+                                                
+                                            }
+                                        </section>
+
+                                        <section className="team2">
+                                            {
+                                                
+                                                info.participants.map((part,indexPart) => {
+                                                    if(indexPart>=5){
+
+                                                        return (
+                                                            <>
+                                                                <ListImg part={part} sumonerName={sumonerName}/>
+                                                            </>
+                                                        )
+                                                    }
+                                                })
+                                                
+                                            }
+                                    
+                                        </section>
+                                    </article>
                                 
-                                    </section>
-                                </article>
-                            </div>
+                                </div> 
+                            </div>     
+                            
                         </>
                     )
                 })
             }
+
+
         </>
     )
 }

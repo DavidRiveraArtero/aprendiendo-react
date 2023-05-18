@@ -5,7 +5,7 @@ export function InfoPlayer ({sumonerLevel,sumonerName,imgIcon}) {
                 <img src={imgIcon} alt="" />
                 <p>{sumonerLevel}</p>
             </section>
-            <h3>{sumonerName}<span>(EUW1)</span></h3>
+            <h3>{sumonerName}</h3>
         </>
     )
 }
