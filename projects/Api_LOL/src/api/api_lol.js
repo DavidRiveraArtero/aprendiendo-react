@@ -1,7 +1,7 @@
 export function callApi (setSumonerLevel,setSumonerName,setImgIcon,setListGame,sumonerName,listGame){
 
     // API
-    const apiKey = "RGAPI-809b0c37-ce57-4812-a241-e64b0ce40961"
+    const apiKey = "RGAPI-3eef72f6-bd09-47a4-9786-4f29e2b75b0f"
     const refApi = "https://euw1.api.riotgames.com/"
     const refRegionApi = "https://europe.api.riotgames.com/"
 
@@ -28,7 +28,6 @@ export function callApi (setSumonerLevel,setSumonerName,setImgIcon,setListGame,s
       
     fetch(refApi+api1).then(resp => resp.json())
         .then(date => {
-            console.log("Primera Fetch")
             setSumonerName(date.name)
             setSumonerLevel(date.summonerLevel)
         
@@ -37,7 +36,7 @@ export function callApi (setSumonerLevel,setSumonerName,setImgIcon,setListGame,s
             .then(respMatches => respMatches.json())
             .then(dateMatches => {
                 setListGame([])
-                for(var x = 0; x<dateMatches.length - 1; x++){
+                for(var x = 0; x<7; x++){
                     dataFetch(dateMatches[x])
                 }
             

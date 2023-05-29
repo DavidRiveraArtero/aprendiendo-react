@@ -71,3 +71,41 @@
     margin-left: 6px;
     width: 31px;
 }
+
+.win{
+    color: green !important;
+}
+
+.lost{
+    color: red!important;
+}
+
+.sectionScore{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.sectionScore p{
+    color: black;
+}
+
+.sectionScore .statusGame {
+    margin: 0% auto 0% 5px;
+    font-size: 20px;
+   
+}
+
+.sectionScore .kda {
+    margin: 0% auto 0% 20px; 
+}
+
+.sectionScore .lvl{
+    margin: 0px 0px 0px 0px;
+    height: 100%;
+    align-items: center;    
+}
+
+.sectionGameMode p {
+    margin-bottom: 0px;
+}

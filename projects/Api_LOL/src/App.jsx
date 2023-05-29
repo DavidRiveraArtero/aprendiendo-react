@@ -2,6 +2,8 @@ import './App.css'
 import { useState,useEffect } from 'react'
 import { callApi } from './api/api_lol'
 
+
+
 import { List_Game } from './components/list_games/ListGame'
 import { InfoPlayer } from './components/info_player/InfoPlayer'
 function App() {
@@ -23,6 +25,7 @@ function App() {
 
   const submit = (event) =>{
     event.preventDefault()
+    if(searchSummoner.length == 0) return
     setSumonerName(searchSummoner)
   }
 

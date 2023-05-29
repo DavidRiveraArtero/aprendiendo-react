@@ -1,14 +1,15 @@
 import './listGame.css'
 import { ListImg } from './listImg'
 export function List_Game({listGame,sumonerName}){
+    const character = "http://ddragon.leagueoflegends.com/cdn/13.10.1/img/champion/"
 
     return (
         <>
-            <h1>Infor Partida</h1>
+            <h1>Game History</h1>
             {
        
                 listGame.map((info,index) => {
-                 
+
                     return (
                         <>
                             <div className="accordion box_list" id="according">
@@ -20,7 +21,32 @@ export function List_Game({listGame,sumonerName}){
                                             aria-expanded="false" 
                                             aria-controls="collapseOne">
 
-                                        <p>{sumonerName}<span className="lowerCase"> ({info.gameMode})</span></p>
+                                        <div>
+                                            {
+                                                info.participants.map((part,index)=>{
+                                                    
+                                                    let css = part.win ? " win" : ' lost'
+                                                    if(part.summonerName == sumonerName){
+                                                        return(
+                                                            <>  
+                                                                <section className='sectionScore'>
+                                                                    {part.championName != "FiddleSticks" ? <img style={{width: '50px'}} src={character + part.championName + ".png"} key={part.gameId}/> : <img style={{width: '50px'}} src={character + 'Fiddlesticks' + ".png"} key={part.gameId}/>}
+                                                                    <p className='lvl'>{part.champLevel}</p>
+                                                                    <p className={css+ ' statusGame'}>{part.win ? "Win" : "Lost"}</p>
+                                                                    <p className='kda'>({part.kills} / {part.deaths} / {part.assists})</p>
+                                                                   
+
+                                                                </section>
+                                                                <section className='sectionGameMode'>
+                                                                    <p>{info.gameMode}</p>
+                                                                </section>
+                                                               
+                                                            </>
+                                                        )
+                                                    }
+                                                })
+                                            }
+                                        </div>
 
                                     </button>
                                 </h2>

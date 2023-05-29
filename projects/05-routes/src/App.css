@@ -1,0 +1,72 @@
+body{
+  margin: 0px!important;
+}
+header{
+  top: 0;
+  left: 0;
+  padding: 20px 10%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 50px;
+  background-color: white;
+}
+
+input{
+  border: 0;
+  border-bottom: 1px solid #727272;
+  font-size: 20px;
+  width: 120%;
+  height: 40px;
+  transition: .4s;
+}
+
+input:hover{
+  box-shadow: 0 0 4pt 1pt #D3D3D3;
+}
+
+input:focus{
+  outline: none;
+  box-shadow: 0 0 4pt 1pt #D3D3D3;
+}
+
+.headerNavegarion{
+  display: flex;
+  flex-direction: row;
+  margin-right: 20px;
+  gap:20px;
+  font-size: 26px;
+
+}
+
+.headerNavegarion a{
+  text-decoration: none;
+  color: black;
+  transition: 0.5s;
+
+}
+
+.headerNavegarion a:hover{
+  color: rgb(0, 138, 138);
+  text-decoration: underline;
+}
+
+.box_film{
+  display: grid;
+  grid-template-columns: repeat(4, 5fr);
+  grid-gap:20px;
+  font-size: 17px;
+  grid-auto-rows: minmax(100px, auto);
+}
+
+.section_film{
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  justify-content: center;
+}
+
+.section_film img{
+  width: 100%;
+
+}
