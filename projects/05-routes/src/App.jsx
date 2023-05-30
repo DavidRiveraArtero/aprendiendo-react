@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link} from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Link, NavLink} from 'react-router-dom'
 import { useState,useEffect } from 'react'
 import './App.css'
 import { ApiFilm } from './api/filmApi'
@@ -74,17 +74,17 @@ function App() {
           </form>
         </section>
         <nav className='headerNavegarion'>
-          <a href='/'>Home</a>
-          <a href='/about'>About</a>
+         <Link to="/">Home</Link>
+         <Link to="/about">About</Link>
+
         </nav>
       </header>
-      <Router>
+    
         <Routes>
           <Route path="/" element={<Home films={films}/>}></Route>
           <Route path="/about" element={<About/>}></Route>
-
         </Routes>
-      </Router>
+      
     
     </>
   )
