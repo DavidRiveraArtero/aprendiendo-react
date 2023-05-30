@@ -1,43 +1,11 @@
-import { BrowserRouter as Router, Routes, Route, Link, NavLink} from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate} from 'react-router-dom'
 import { useState,useEffect } from 'react'
 import './App.css'
 import { ApiFilm } from './api/filmApi'
+import { Home } from './components/home/home'
+import { About } from './components/about/about'
+import { Film } from './components/film/film'
 
-
-function Home({films}){
-  
-  return (
-    <>
-      <h1>FILMS</h1>
-      <section className='box_film'>
-      {
-        films.length == 0 ? console.log("No hay pelicula") :
-
-        films.map((film,index)=>{
-         
-          return(
-            <section className='section_film'>
-              <p key={index}>{film.Title}</p>
-              <img key={film.imdbID} src={film.Poster}/>
-            </section>
-          )
-        }) 
-      }
-      </section>
-      
-    </>
-  )
-}
-
-
-function About(){
-  return(
-    <>
-      <h1>About</h1>
-    
-    </>
-  )
-}
 
 function App() {
   
@@ -45,7 +13,7 @@ function App() {
   const [films,setFilms] = useState([])
   const [inputFilm,setInputFilm] = useState('') // LO QUE BUSCAMOS AL FINAL
   const [search,setSearch] = useState('') // INPUT
-
+  const navigate = useNavigate()
   useEffect(()=> {
     ApiFilm(setFilms,search)
       
@@ -53,7 +21,9 @@ function App() {
 
   const submit = (event)=> {
     event.preventDefault()
+    
     setInputFilm(search)
+    navigate("/")
   }
 
   const searchChange = (event) =>{
@@ -82,6 +52,8 @@ function App() {
     
         <Routes>
           <Route path="/" element={<Home films={films}/>}></Route>
+          <Route path="*" element={<Home films={films}/>}></Route>
+          <Route path='/film/:id' element={<Film />}></Route>
           <Route path="/about" element={<About/>}></Route>
         </Routes>
       
