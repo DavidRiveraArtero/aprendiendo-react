@@ -19,6 +19,8 @@ function App() {
       
   },[inputFilm])
 
+
+
   const submit = (event)=> {
     event.preventDefault()
     
@@ -45,7 +47,7 @@ function App() {
         </section>
         <nav className='headerNavegarion'>
          <Link to="/">Home</Link>
-         <Link to="/about">About</Link>
+         <Link to="/Task">Task</Link>
 
         </nav>
       </header>
@@ -54,7 +56,7 @@ function App() {
           <Route path="/" element={<Home films={films}/>}></Route>
           <Route path="*" element={<Home films={films}/>}></Route>
           <Route path='/film/:id' element={<Film />}></Route>
-          <Route path="/about" element={<About/>}></Route>
+          <Route path="/task" element={<About/>}></Route>
         </Routes>
       
     

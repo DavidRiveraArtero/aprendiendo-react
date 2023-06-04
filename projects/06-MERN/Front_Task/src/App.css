@@ -1,0 +1,90 @@
+body{margin: 0px!important;}
+
+header{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  background-color: white; 
+}
+
+.box_task{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin:30px ;
+}
+
+.section_tasks{
+  width: 50%;
+  font-size: 19px;
+}
+
+.section_tasks_task_title{
+  font-size: 25px!important;
+  color:black;
+  text-align: center;
+  width: 100%;
+  background-color: #4CAF50;
+  
+}
+
+.section_tasks_task{
+  border: 1px solid red;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  background-color: white;
+  
+}
+
+.section_tasks_task td{
+  width: 100%;
+}
+
+.container {
+  width: 30%;
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.container h2 {
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  margin-right: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+.form-group input[type="text"],
+.form-group input[type="email"],
+.form-group textarea {
+  width: 100%;
+  padding: 8px;
+  border-radius: 3px;
+  border: 1px solid #ccc;
+  resize: none;
+ 
+}
+
+.form-group button {
+      background-color: #4CAF50;
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+}
+
+.form-group button:hover {
+  background-color: #45a049;
+}
