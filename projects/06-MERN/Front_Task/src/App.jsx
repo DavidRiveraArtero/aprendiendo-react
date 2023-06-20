@@ -7,8 +7,13 @@ function App() {
 
   
   const [nameTask, setNameTask] = useState("")
-  
-  
+  const [updateNameTask, setUpdateNameTask] = useState("")
+  const [updateDescTask, setUpdateDescTask] = useState("")
+  const [submit, setSubmit] = useState(false)
+
+  const [buttonClick, setButtonClick] = useState(false)
+  const [id,setId] = useState("")
+
   return (
     <>
       <header>
@@ -17,10 +22,24 @@ function App() {
       
      
       <div className='box_task'>
-        <section class="container">
-          <FormTask nameTask={nameTask} setNameTask={setNameTask}/>
+        <section className="container">
+          <FormTask nameTask={nameTask} 
+                    setNameTask={setNameTask} 
+                    updateNameTask={updateNameTask} 
+                    updateDescTask={updateDescTask} 
+                    setButtonClick={setButtonClick}
+                    buttonClick={buttonClick} 
+                    id={id}
+                    submit={submit}
+                    setSubmit={setSubmit}/>
         </section>
-        <TableTask nameTask={nameTask}/>
+        <TableTask 
+                   setUpdateNameTask={setUpdateNameTask} 
+                   setUpdateDescTask={setUpdateDescTask} 
+                   setButtonClick={setButtonClick} 
+                   buttonClick={buttonClick} 
+                   setId={setId}
+                   submit={submit}/>
       </div>  
     </>
   )

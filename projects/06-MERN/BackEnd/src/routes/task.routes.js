@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router()
-const cors = require('cors')
+
 
 const Task = require('../models/task');
 
@@ -15,7 +15,7 @@ router.get('/', async (req,res) => {
 router.post('/', async (req,res) => {
     
     const {title, description} = req.body
-    console.log("hpña",req.body)
+    
     const task = new Task({title, description})
     await task.save()
     res.json('recived')

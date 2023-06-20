@@ -1,38 +1,38 @@
 import { useState, useEffect } from "react"
+import { updateTask,createTask } from "../../api/taskApi"
 
-export function FormTask ({nameTask,setNameTask}){
-    console.log(nameTask)
+
+export function FormTask ({updateNameTask,updateDescTask,buttonClick,id,setButtonClick,submit,setSubmit}){
+
     const [descriptionTask, setDescriptionTask] = useState("")
 
     const [searchNameTask,setSearchNameTask] = useState("")
     const [searchDescriptionTask,setSearchDescriptionTask] = useState("")
+    const [textSubmit, setTextSubmit] = useState(false)
 
 
     useEffect(() => {
-        if(nameTask.length == 0) return
-        fetch('http://localhost:3000/api/tasks',{
-        method:'POST',
-        body: JSON.stringify({
-            title:nameTask,
-            description:descriptionTask
-        }),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-        },
-        
-        })
-        setNameTask("")
-    },[nameTask])
+        setSearchNameTask(updateNameTask)
+        setDescriptionTask(updateDescTask)
+        setTextSubmit(!textSubmit)
+    },[buttonClick])
 
   
 
   const submitInfo = (event) => {
     event.preventDefault()
     if(searchNameTask.length == 0) return
-    
-    setNameTask(searchNameTask)
-    setDescriptionTask(searchDescriptionTask)
+
+    setSubmit(!submit)
+    if(!buttonClick){
+        createTask(searchNameTask,searchDescriptionTask)
+    }else{
+        setButtonClick(!buttonClick)
+        updateTask(id,searchNameTask,searchDescriptionTask)
+    }
+
   }
+
 
   const changeInfoTask = (event) => {
       console.log(event.target.value)
@@ -46,26 +46,31 @@ export function FormTask ({nameTask,setNameTask}){
     return (
         <>
             <h2>Añadir Nueva Tarea</h2>
-            <form onSubmit={submitInfo}  method="POST">
-                <div class="form-group">
-                    <label for="nombre">Nombre:</label>
+            <form method="POST">
+                <div className="form-group">
+                    <label htmlFor="nombre">Nombre:</label>
                     <input id='nameTask' 
                         type='text'
                         placeholder='Name Task' 
                         onChange={changeInfoTask}
                         value={searchNameTask} required/>
                 </div>
-                <div class="form-group">
-                    <label for="mensaje">Mensaje:</label>
+                <div className="form-group">
+                    <label htmlFor="mensaje">Mensaje:</label>
                     <textarea 
                     id="mensaje" 
                     name="mensaje" 
                     rows="5"
                     onChange={changeDescTask} 
-                    required/>
+                    required>
+                     
+                    </textarea>
                 </div>
-                <div class="form-group">
-                    <button type="submit">Enviar</button>
+                <div className="form-group">
+                       
+                    {textSubmit && <button onClick={submitInfo} type="submit">Crear Tarea</button>}                      
+                    {!textSubmit && <button onClick={submitInfo} type="submit">Actualizar</button>} 
+                    
                 </div>
             </form>
         
