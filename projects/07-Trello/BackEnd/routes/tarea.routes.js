@@ -4,6 +4,7 @@ const router = express.Router()
 
 const Tarea = require("../models/tarea")
 const Tabla = require("../models/tabla")
+const Comen = require("../models/comen")
 
 const TablaFindById = (id) => {
    
@@ -24,6 +25,7 @@ const TablaFindById = (id) => {
 }
 
 router.get('/', async (req,res)=>{
+    deleteRelationalCommen
     const tarea = await Tarea.find()
     res.json(tarea)
 })
@@ -83,6 +85,10 @@ router.put('/:id', async(req,res,next)=>{
 
 
 router.delete("/:id", async (req, res) => {
+
+    const allcoment = await Comen.find()
+
+
     Tarea.findByIdAndDelete(req.params.id)
         .then(resp => {
             if(resp){

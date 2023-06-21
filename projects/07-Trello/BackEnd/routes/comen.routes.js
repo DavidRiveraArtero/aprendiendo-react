@@ -46,7 +46,7 @@ router.post("/", async (req, res) => {
     const {fk_tarea, comen} = req.body
     console.log(typeof(fk_tarea))
     if(!findTarea(fk_tarea)){
-        res.json("Lo sentimos la tarea que nos proporcionas no existe")
+        res.json({error:"Lo sentimos la tarea que nos proporcionas no existe"})
     }
 
     const newComen = new Comen(
@@ -59,10 +59,46 @@ router.post("/", async (req, res) => {
     await newComen.save()
             .then(resp => {
                 if(resp){
-                    res.json("Se ha creado con exito")
+                    res.json({succes:"Se ha creado con exito"})
                 }
             })
             .catch({error:"A ocurrido un error"})
 })
+
+
+router.put('/:id', async (req, res) => {
+    const {commen} = req.body
+    const newComen = new Comen(
+        {
+            comentario : commen
+        }
+    )
+
+    Comen.findByIdAndUpdate(req.params.id)
+        .then(resp => {
+            if(resp){
+                res.json({succes:"La tarea se ha actualizado"})
+            }
+        })
+        .catch(err => {
+            res.json({error : "A ocurrido un error"})
+        })
+
+})
+
+router.delete("/:id", async (req, res) => {
+    Comen.findByIdAndDelete(req.params.id)
+        .then(resp => {
+            if(resp){
+                res.json({success : "Comentario eliminado correctamente"})
+            }
+        })
+        .catch( err => {
+            res.json({error : "A ocurrido un error inesperado"})
+        })
+
+})
+
+
 
 module.exports = router
