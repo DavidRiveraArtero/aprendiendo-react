@@ -1,0 +1,52 @@
+.tablero{
+  overflow: auto;
+  white-space: nowrap;
+  height: auto;
+  height: 100%;
+}
+
+.tablero_table{
+  height: 100%;
+  width: 300px;
+  display: inline-block;
+  border: 1px solid red;
+  background-color: gray;
+  margin-right: 10px;
+}
+
+.tablero_form{
+  width: 300px;
+  border: 1px solid blue;
+  height: 40px;
+  background-color: white;
+  display: inline-block;
+  gap:14px;
+  align-items: center;
+}
+
+.tablero_form button{
+  margin-left: 4px;
+  border-radius: 100%;
+  width: 32px;
+  height: 32px;
+  text-align: center;
+  border: 1px solid black;
+  transition: all .5s;
+}
+
+.tablero_form button:hover{
+  background-color: red;
+}
+
+.tablero_form input{
+  width: 50%;
+  border:0px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.322);
+  font-size: 15px;
+  transition: all .5s;
+}
+
+.tablero_form input:focus{
+  width: 70%;
+  outline: none;
+}

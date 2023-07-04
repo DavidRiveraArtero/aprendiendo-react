@@ -25,7 +25,7 @@ const TablaFindById = (id) => {
 }
 
 router.get('/', async (req,res)=>{
-    deleteRelationalCommen
+    
     const tarea = await Tarea.find()
     res.json(tarea)
 })
@@ -92,7 +92,7 @@ router.delete("/:id", async (req, res) => {
     Tarea.findByIdAndDelete(req.params.id)
         .then(resp => {
             if(resp){
-                res.json("Tarea Eliminada")
+                res.json("Tarea Eliminada 😎")
             }
         })
         .catch(err => {
