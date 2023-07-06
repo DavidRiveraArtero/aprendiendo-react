@@ -1,7 +1,7 @@
 .tablero{
-  overflow: auto;
+
   white-space: nowrap;
-  height: auto;
+
   height: 100%;
 }
 
@@ -16,21 +16,23 @@
 
 .tablero_form{
   width: 300px;
+  height: 58px;
   border: 1px solid blue;
-  height: 40px;
   background-color: white;
   display: inline-block;
-  gap:14px;
-  align-items: center;
+  position: absolute;
+  text-align: center;
 }
 
 .tablero_form button{
   margin-left: 4px;
   border-radius: 100%;
-  width: 32px;
-  height: 32px;
+  width: 34px;
+  height: 34px;
   text-align: center;
   border: 1px solid black;
+  margin-right: 20px;
+  margin-top: 11px;
   transition: all .5s;
 }
 
