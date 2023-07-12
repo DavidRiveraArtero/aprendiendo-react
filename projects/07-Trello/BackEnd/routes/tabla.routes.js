@@ -33,8 +33,25 @@ router.post('/', async(req,res,next) => {
     res.json("Tabla Creada")
 })
 
-router.delete("/:id",async(req,res,next) => {
+router.put('/:id',async(req,res) => {
+    const {posicion} = req.body
+    const updateTable = {posicion}
+    console.log("POSICION: ", posicion)
+    console.log("ID: ", req.params.id)
+    Tabla.findByIdAndUpdate(req.params.id,updateTable)
+        .then(resp =>{
+            if(resp){
+                res.json("Tabla Actualizada")
+            }
+        }).catch(err => {
+            console.log(err)
+            res.json("A OCURRIDO UN ERROR")
+        })
 
+})
+
+router.delete("/:id",async(req,res,next) => {
+    
 
     Tabla.findByIdAndDelete(req.params.id)
         .then(result => {
@@ -43,7 +60,7 @@ router.delete("/:id",async(req,res,next) => {
             }
         })
         .catch(err => {
-            console.log("NO SE ENCONTRO LA TABLA")
+            console.log(err)
             res.json("No se encontro")
         })
   

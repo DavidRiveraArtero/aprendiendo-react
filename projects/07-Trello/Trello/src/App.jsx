@@ -1,6 +1,6 @@
 import './App.css'
 import { useEffect,useState } from 'react'
-import { getTable, postTable } from './api/Trello_Api/Tabla'
+import { getTable, postTable,updateTable } from './api/Trello_Api/Tabla'
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 function App() {
@@ -8,6 +8,8 @@ function App() {
   const [tables, setTables] = useState([])
  
   const [changeNameTable, setChangeNameTable] = useState("")
+
+
 
   useEffect(()=>{
 
@@ -22,7 +24,6 @@ function App() {
   }, [tables])
 
   const changeName = (event) => {
-    console.log(event.target.value)
     setChangeNameTable(event.target.value)
   }
 
@@ -34,13 +35,28 @@ function App() {
   }
 
   function handleOnDragEnd(result){
-    //console.log(result)
+   
     const items = Array.from(tables)
     const [reoderItems] = items.splice(result.source.index,1)
     items.splice(result.destination.index,0,reoderItems)
     setTables(items)
+    updateTable(result)
+
   }
 
+  const showForm = (event) => {
+    
+    event.target.style.display = "none"
+    event.target.parentNode.getElementsByTagName("form")[0].style.display = "block"
+  }
+
+  const closeForm = (event) => {
+    event.preventDefault()
+    
+    event.target.parentNode.parentNode.style.display = "none"
+    event.target.parentNode.parentNode.parentNode.getElementsByClassName("btn_desplegable")[0].style.display = "block"
+
+  }
 
   return (
     <>
@@ -57,10 +73,31 @@ function App() {
                     return (
                       <Draggable key={table._id} draggableId={table._id} index={index} >
                         {(provided) => (
-                          <section className='tablero_table' {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
-                            <p>{table.nombre}</p>
-
-                          </section>
+                          <>
+                            <div className='tablas' {...provided.draggableProps} {...provided.dragHandleProps} ref={provided.innerRef}>
+                              <section className='tablero_table_header' >
+                                <p>{table.nombre}</p>
+                              </section>
+                              <div className='tablero_table_body'>
+                                <section className='tablero_table_task'>
+                                    <p>LAS TAREAS</p>
+                                </section>
+                                <section className='tablero_table_task_form'>
+                                  
+                                  <button onClick={showForm} className='btn_desplegable'>+ Añadir Tarea</button>
+                                  <form>
+                                      <textarea data-autosize="true" placeholder='Añadir Titulo de la Tarea'></textarea>
+                                      <div className='formTaskButtons'>
+                                        <button className='btn_formTask' type='submit'>Crear Tarea</button>
+                                        <button onClick={closeForm} className='btn_formTask'>❌</button>
+                                      </div>
+                                    </form> 
+                                  
+                                  
+                                </section>
+                              </div>
+                            </div>
+                          </>
                         )}
                        
                       </Draggable>

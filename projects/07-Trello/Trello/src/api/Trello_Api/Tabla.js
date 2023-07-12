@@ -1,37 +1,20 @@
 const URI = "http://localhost:3000/api/tabla"
+
 export function getTable(setTables){
-    const newOrderTable = []
+    
     fetch(URI)
         .then(resp => resp.json())
         .then(data => {
-           
-            for(var x = 0; x<data.length; x++){
-               
-                for(var y = 0;y<data.length;y++){
-                    // PARA LA PRIMERA VEZ LE PONDREMOS UN DATO
-                    if(newOrderTable.length == 0){
-                        newOrderTable.push(data[x])
-                    }
-                    // PARA LAS SIGUIENTES MIRAREMOS SI ES MAS GRANDE QUE EL PROXIMO DATO
-                    if(newOrderTable[y].posicion > data[x].posicion){
-      
-                        newOrderTable.splice(y,0,data[x])
-                 
-                    }
-                    // EN CASO CONTRARIO AÑADIREMOS EL DATO NORMAL
-                    else if(newOrderTable[y].posicion != data[x].posicion){
-           
-                        newOrderTable.push(data[x])
-            
-                    }
-
-                    break
+            // ORDENAR POR LA POSICION 
+            const newOrderData = data.sort((a,b) => {
+                if(a.posicion<b.posicion){
+                    return -1 
+                }else{
+                    return 1
                 }
+            })
 
-
-            }
-
-            setTables(newOrderTable)
+            setTables(newOrderData)
         })
         .catch(err => {
             return err
@@ -52,4 +35,53 @@ export function postTable(nameTable,postion){
         },
 
     })
+}
+
+export async function updateTable(result){
+
+    const destinationPosition = result.destination.index + 1 
+    const originPosition = result.source.index + 1
+    const idTableMoved = result.draggableId
+
+    const idTableModifi = await searchPosition(destinationPosition)
+    // console.log(result)
+    // console.log("Destination ID",destinationPosition)
+    // console.log("Origin ID",originPosition)
+    // console.log("tableMoved",idTableMoved)
+    // console.log("idTableModifi: ", idTableModifi)
+
+    // FIRTS UPDATE
+    fetch(URI+"/"+idTableMoved,{
+        method:'PUT',
+        body: JSON.stringify({
+            posicion:destinationPosition
+        }),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        },
+    })
+
+    fetch(URI+"/"+idTableModifi,{
+        method:'PUT',
+        body: JSON.stringify({
+            posicion:originPosition
+        }),
+        headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+        },
+    })
+
+}
+
+async function searchPosition(position){
+    const  resp = await fetch(URI)
+    const data = await resp.json()
+
+    for(var x = 0;x<data.length;x++){
+        if(data[x].posicion == position){
+            
+            return data[x]._id
+        }
+    }
+
 }
