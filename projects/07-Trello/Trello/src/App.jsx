@@ -1,20 +1,22 @@
 import './App.css'
 import { useEffect,useState } from 'react'
-import { getTable, postTable,updateTable } from './api/Trello_Api/Tabla'
+import { getTable, postTable,updateTable } from './api/Tabla'
+import { getTareas,postTarea } from './api/tareas';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 
 function App() {
 
   const [tables, setTables] = useState([])
+  const [tareas,setTareas] = useState([])
  
   const [changeNameTable, setChangeNameTable] = useState("")
-
 
 
   useEffect(()=>{
 
     let time = setTimeout(() => {
       getTable(setTables)
+      getTareas(setTareas)
     }, 1000)
 
     return () => {
@@ -58,6 +60,23 @@ function App() {
 
   }
 
+  const postTareas = (event) => {
+    event.preventDefault()
+    
+    const txtTarea = event.target[0].value
+    const fk_id = event.target.id
+    let position = 0
+    for(var x = 0; x<tables.length;x++){
+      console.log(tables[x]._id == fk_id)
+      if(tables[x]._id == fk_id){
+        
+        position++
+      }
+    }
+    console.log(position)
+    postTarea(txtTarea,fk_id,position)    
+  }
+
   return (
     <>
       <h1>Trello Prue</h1>
@@ -78,22 +97,33 @@ function App() {
                               <section className='tablero_table_header' >
                                 <p>{table.nombre}</p>
                               </section>
+                              
                               <div className='tablero_table_body'>
-                                <section className='tablero_table_task'>
-                                    <p>LAS TAREAS</p>
-                                </section>
-                                <section className='tablero_table_task_form'>
-                                  
+                               
+                                {
+                                  tareas.map((tarea,index) => {
+                                    if(tarea.FK_ID_Tabla == table._id){
+                                      return(
+                                      
+                                        <section className='tablero_table_task'>
+                                          <p>{tarea.nombre}</p>
+                                        </section>
+                                    
+                                      )
+
+                                    }
+                                  })
+                                }
+                                
+                                <section className='tablero_table_task_form'>  
                                   <button onClick={showForm} className='btn_desplegable'>+ Añadir Tarea</button>
-                                  <form>
-                                      <textarea data-autosize="true" placeholder='Añadir Titulo de la Tarea'></textarea>
-                                      <div className='formTaskButtons'>
-                                        <button className='btn_formTask' type='submit'>Crear Tarea</button>
-                                        <button onClick={closeForm} className='btn_formTask'>❌</button>
-                                      </div>
-                                    </form> 
-                                  
-                                  
+                                  <form id={table._id} onSubmit={postTareas}>
+                                    <textarea required data-autosize="true" placeholder='Añadir Titulo de la Tarea'></textarea>
+                                    <div className='formTaskButtons'>
+                                      <button className='btn_formTask' type='submit'>Crear Tarea</button>
+                                      <button onClick={closeForm} className='btn_formTask'>❌</button>
+                                    </div>
+                                  </form> 
                                 </section>
                               </div>
                             </div>

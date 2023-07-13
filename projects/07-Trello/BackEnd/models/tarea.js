@@ -7,7 +7,8 @@ const TareaSchema = new Schema({
     { type: String, required:true, ref:"Tabla"}
     ,
     nombre: { type : String, required:true},
-    Fecha: {type: Date, default:Date.now, required:true}
+    posicion:{type : Number},
+    Fecha: {type : Date, default:Date.now, required:true}
 })
 
 module.exports = mongoose.model('Tarea',TareaSchema)

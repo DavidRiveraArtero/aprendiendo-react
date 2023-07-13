@@ -33,7 +33,7 @@ router.get('/', async (req,res)=>{
 
 
 router.post('/:id_tabla',async(req,res,next)=> {
-    const {nombre} = req.body
+    const {nombre,posicion} = req.body
    
     const findTarea = await TablaFindById(req.params.id_tabla)
     console.log(findTarea)
@@ -43,7 +43,9 @@ router.post('/:id_tabla',async(req,res,next)=> {
         const id = req.params.id_tabla 
         const newTarea = new Tarea({
             FK_ID_Tabla : id,
-            nombre: nombre})
+            nombre: nombre,
+            posicion:posicion
+        })
         await newTarea.save()
         res.json("Tabla Creada")
     }
