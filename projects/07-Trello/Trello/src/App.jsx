@@ -8,9 +8,10 @@ function App() {
 
   const [tables, setTables] = useState([])
   const [tareas,setTareas] = useState([])
- 
   const [changeNameTable, setChangeNameTable] = useState("")
-
+  const [stateQuickCard, setStateQuickCard] = useState(false)
+  const [positionCard,setPositionCard] = useState({})
+  const [valueQuickCard,setValueQuickCard] = useState("")
 
   useEffect(()=>{
 
@@ -66,15 +67,35 @@ function App() {
     const txtTarea = event.target[0].value
     const fk_id = event.target.id
     let position = 0
-    for(var x = 0; x<tables.length;x++){
-      console.log(tables[x]._id == fk_id)
-      if(tables[x]._id == fk_id){
-        
-        position++
+    if(tareas.length != 0){
+      for(var x = 0;x<tareas.length;x++){
+        if(fk_id == tareas[x].FK_ID_Tabla){
+          position++
+        }
       }
     }
-    console.log(position)
     postTarea(txtTarea,fk_id,position)    
+  }
+
+  const calcularPosition = (event) => {
+    const p = event.target.getBoundingClientRect()
+    setValueQuickCard(event.target.innerHTML.split("<")[0])
+    const positionX = p.x-4.5
+    const positionY = p.y
+    setPositionCard({
+      width:"275px",
+      height:'100px',
+      position:"absolute",
+      top:positionY,
+      left:positionX,
+
+    })
+    setStateQuickCard(!stateQuickCard)
+  }
+
+  const removeQuickCard = (event) => {
+   
+    setStateQuickCard(!stateQuickCard)
   }
 
   return (
@@ -106,7 +127,7 @@ function App() {
                                       return(
                                       
                                         <section className='tablero_table_task'>
-                                          <p>{tarea.nombre}</p>
+                                          <p onClick={calcularPosition}>{tarea.nombre} <span className='taskArrowIcon'>🔽</span></p>
                                         </section>
                                     
                                       )
@@ -118,7 +139,7 @@ function App() {
                                 <section className='tablero_table_task_form'>  
                                   <button onClick={showForm} className='btn_desplegable'>+ Añadir Tarea</button>
                                   <form id={table._id} onSubmit={postTareas}>
-                                    <textarea required data-autosize="true" placeholder='Añadir Titulo de la Tarea'></textarea>
+                                    <textarea className='taskArea' required data-autosize="true" placeholder='Añadir Titulo de la Tarea'></textarea>
                                     <div className='formTaskButtons'>
                                       <button className='btn_formTask' type='submit'>Crear Tarea</button>
                                       <button onClick={closeForm} className='btn_formTask'>❌</button>
@@ -145,10 +166,26 @@ function App() {
         </Droppable>
 
       </DragDropContext>
+      
+      {
+        stateQuickCard ? <>
 
-     
+                            <div className='quickCard' onClick={removeQuickCard}>
+                            
+                            </div>
+                            <div style={{zIndex:"11",position:"absolute",top:"0", left:"0"}}>
+                              <textarea onChange={(event) => { setValueQuickCard(event.target.value) }} 
+                                        className='taskArea' 
+                                        style={positionCard} value={valueQuickCard}>
 
-    
+                              </textarea>
+                            </div> 
+                          </>
+                         
+                         : 
+                          
+                          ""
+      }
     </>
   )
 }
