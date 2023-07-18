@@ -7,6 +7,7 @@ import { QuickCard } from './components/quickCard';
 function App() {
 
   const [tables, setTables] = useState([])
+  const [stateUseEffect,setStateUseEffect] = useState(false)
   const [tareas,setTareas] = useState([])
   const [changeNameTable, setChangeNameTable] = useState("")
   const [stateQuickCard, setStateQuickCard] = useState(false)
@@ -16,16 +17,13 @@ function App() {
 
   useEffect(()=>{
 
-    let time = setTimeout(() => {
+  
       getTable(setTables)
+      
       getTareas(setTareas)
-    }, 1000)
-
-    return () => {
-      clearTimeout(time)
-    }
+  
     
-  }, [tables])
+  }, [stateUseEffect])
 
   const changeName = (event) => {
     setChangeNameTable(event.target.value)
@@ -35,6 +33,7 @@ function App() {
     event.preventDefault()
     postTable(changeNameTable, tables.length)
     setChangeNameTable("")
+    setStateUseEffect(!stateUseEffect)
 
   }
 
@@ -45,6 +44,7 @@ function App() {
     items.splice(result.destination.index,0,reoderItems)
     setTables(items)
     updateTable(result)
+    setStateUseEffect(!stateUseEffect)
 
   }
 

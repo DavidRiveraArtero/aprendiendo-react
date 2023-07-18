@@ -6,6 +6,7 @@ export function getTable(setTables){
         .then(resp => resp.json())
         .then(data => {
             // ORDENAR POR LA POSICION 
+            
             const newOrderData = data.sort((a,b) => {
                 if(a.posicion<b.posicion){
                     return -1 
@@ -15,6 +16,7 @@ export function getTable(setTables){
             })
 
             setTables(newOrderData)
+            
         })
         .catch(err => {
             return err
