@@ -22,4 +22,16 @@ export function postTarea(text,id,position){
     })
 }
 
+export function putTarea(text, id){
+    fetch(URI+"/"+id,{
+        method:'PUT',
+        body:JSON.stringify({
+            nombre:text
+        }),
+        headers:{
+            'Content-Type': 'application/json; charset=UTF-8'
+        }
+    })
+}
+
 

@@ -3,7 +3,7 @@ import { useEffect,useState } from 'react'
 import { getTable, postTable,updateTable } from './api/Tabla'
 import { getTareas,postTarea } from './api/tareas';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-
+import { QuickCard } from './components/quickCard';
 function App() {
 
   const [tables, setTables] = useState([])
@@ -12,6 +12,7 @@ function App() {
   const [stateQuickCard, setStateQuickCard] = useState(false)
   const [positionCard,setPositionCard] = useState({})
   const [valueQuickCard,setValueQuickCard] = useState("")
+  const [idPostTarea, setIdPostTarea] = useState("")
 
   useEffect(()=>{
 
@@ -79,8 +80,9 @@ function App() {
 
   const calcularPosition = (event) => {
     const p = event.target.getBoundingClientRect()
-    setValueQuickCard(event.target.innerHTML.split("<")[0])
-    const positionX = p.x-4.5
+    setValueQuickCard(event.target.parentNode.innerHTML.split("<")[0])
+    setIdPostTarea(event.target.parentNode.id)
+    const positionX = p.x-257
     const positionY = p.y
     setPositionCard({
       width:"275px",
@@ -93,10 +95,7 @@ function App() {
     setStateQuickCard(!stateQuickCard)
   }
 
-  const removeQuickCard = (event) => {
-   
-    setStateQuickCard(!stateQuickCard)
-  }
+
 
   return (
     <>
@@ -126,8 +125,8 @@ function App() {
                                     if(tarea.FK_ID_Tabla == table._id){
                                       return(
                                       
-                                        <section className='tablero_table_task'>
-                                          <p onClick={calcularPosition}>{tarea.nombre} <span className='taskArrowIcon'>🔽</span></p>
+                                        <section className='tablero_table_task' key={index}>
+                                          <p id={tarea._id}>{tarea.nombre} <span  onClick={calcularPosition} className='taskArrowIcon'>🔽</span></p>
                                         </section>
                                     
                                       )
@@ -167,25 +166,7 @@ function App() {
 
       </DragDropContext>
       
-      {
-        stateQuickCard ? <>
-
-                            <div className='quickCard' onClick={removeQuickCard}>
-                            
-                            </div>
-                            <div style={{zIndex:"11",position:"absolute",top:"0", left:"0"}}>
-                              <textarea onChange={(event) => { setValueQuickCard(event.target.value) }} 
-                                        className='taskArea' 
-                                        style={positionCard} value={valueQuickCard}>
-
-                              </textarea>
-                            </div> 
-                          </>
-                         
-                         : 
-                          
-                          ""
-      }
+      <QuickCard positionCard={positionCard} setStateQuickCard={setStateQuickCard} stateQuickCard={stateQuickCard} valueQuickCard={valueQuickCard} setValueQuickCard={setValueQuickCard} id={idPostTarea}/>
     </>
   )
 }

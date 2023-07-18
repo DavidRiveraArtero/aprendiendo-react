@@ -57,21 +57,32 @@ router.post('/:id_tabla',async(req,res,next)=> {
 router.put('/:id', async(req,res,next)=>{
     
     const {id_tabla, nombre} = req.body
+    let UpdateTarea
     // COMPROBAR QUE EL ID_TABLA QUE AÑADIMOS NUEVO EXISTA EN LA TABLA 
     const findId = await TablaFindById(id_tabla) 
-
-    if(!findId){
-        res.json({error: "Lo sentimos no lo pudimos encontrar"})
-        return next("Lo sentimos no lo pudimos encontrar")
-    }
-
-    // SI TODO ESTA BIEN CREAMOS LA TAREA CON LA NUEVA INFORMACION
-    const UpdateTarea = new Tarea({
-        FK_ID_Tabla:id_tabla,
-        nombre:nombre,
-        _id:req.params.id
-    })
+    if(id_tabla == "undefined"){
+        console.log("dentro")
     
+        if(!findId){
+            res.json({error: "Lo sentimos no lo pudimos encontrar"})
+            return next("Lo sentimos no lo pudimos encontrar")
+        }
+
+        // SI TODO ESTA BIEN CREAMOS LA TAREA CON LA NUEVA INFORMACION
+        UpdateTarea = new Tarea({
+            FK_ID_Tabla:id_tabla,
+            _id:req.params.id
+        })
+
+    }else{
+       
+        UpdateTarea = new Tarea({
+            nombre:nombre,
+            _id:req.params.id
+        })
+       
+    }
+    console.log(req.params.id)
     // BUSCAMOS LA TAREA Y SE ACUTALIZA SI NO HAY NINGUN ERROR 
     Tarea.findByIdAndUpdate(req.params.id,UpdateTarea)
         .then(result => {
