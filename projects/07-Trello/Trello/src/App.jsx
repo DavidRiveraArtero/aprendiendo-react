@@ -166,7 +166,7 @@ function App() {
 
       </DragDropContext>
       
-      <QuickCard positionCard={positionCard} setStateQuickCard={setStateQuickCard} stateQuickCard={stateQuickCard} valueQuickCard={valueQuickCard} setValueQuickCard={setValueQuickCard} id={idPostTarea}/>
+      <QuickCard setStateUseEffect={setStateUseEffect} stateUseEffect={stateUseEffect} positionCard={positionCard} setStateQuickCard={setStateQuickCard} stateQuickCard={stateQuickCard} valueQuickCard={valueQuickCard} setValueQuickCard={setValueQuickCard} id={idPostTarea}/>
     </>
   )
 }

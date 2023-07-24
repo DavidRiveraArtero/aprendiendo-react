@@ -1,6 +1,6 @@
 import { putTarea } from "../api/tareas"
 
-export function QuickCard({positionCard,setStateQuickCard,stateQuickCard,valueQuickCard,setValueQuickCard,id}){
+export function QuickCard({setStateUseEffect,stateUseEffect,positionCard,setStateQuickCard,stateQuickCard,valueQuickCard,setValueQuickCard,id}){
 
     
     const removeQuickCard = () => {
@@ -15,8 +15,9 @@ export function QuickCard({positionCard,setStateQuickCard,stateQuickCard,valueQu
 
     const putTask = (event) =>{
         event.preventDefault()
-        console.log(event.target[0].value)
         putTarea(event.target[0].value, id)
+        setStateUseEffect(!stateUseEffect)
+        setStateQuickCard(!stateQuickCard)
     }
 
     return(
