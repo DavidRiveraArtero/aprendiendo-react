@@ -43,8 +43,10 @@ function App() {
     const [reoderItems] = items.splice(result.source.index,1)
     items.splice(result.destination.index,0,reoderItems)
     setTables(items)
-    updateTable(result)
-    setStateUseEffect(!stateUseEffect)
+    updateTable(result).then(resp => {
+      setStateUseEffect(!stateUseEffect)
+
+    })
 
   }
 
