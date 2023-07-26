@@ -34,4 +34,8 @@ export function putTarea(text, id){
     })
 }
 
+export function deletTarea(id){
+    fetch(URI+"/"+id,{method:'Delete'})
+}
+
 

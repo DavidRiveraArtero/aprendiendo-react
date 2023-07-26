@@ -170,3 +170,41 @@
   position: fixed;
   z-index: 10;
 }
+
+.quicCardOptions{
+  display: flex;
+  flex-direction: column;
+  width: 150px;
+}
+
+.buttPutTareaButton{
+  width: 70px;
+  border-radius: 6px;
+  cursor: pointer;
+  background-color: #A0E7E5;
+  padding: 6px 12px 6px 10px;
+  
+}
+.buttPutTareaButton:hover{
+  background-color: #7aafad;
+  color: white;
+}
+
+.quicCardOptions button{
+  display: block;
+  cursor: pointer;
+  background: #0009;
+  color: #c7d1db;
+  padding: 6px 12px 6px 10px;
+  border-radius: 3px;
+  margin: 0 0 4px 8px;
+  transition: transform 85ms ease-in;
+  
+}
+
+.quicCardOptions button:hover{
+  transform: translateX(7px);
+  color:white;
+  background-color: black;
+ 
+}

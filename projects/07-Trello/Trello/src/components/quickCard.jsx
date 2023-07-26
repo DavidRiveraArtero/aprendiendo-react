@@ -1,4 +1,4 @@
-import { putTarea } from "../api/tareas"
+import { putTarea,deletTarea } from "../api/tareas"
 
 export function QuickCard({setStateUseEffect,stateUseEffect,positionCard,setStateQuickCard,stateQuickCard,valueQuickCard,setValueQuickCard,id}){
 
@@ -20,6 +20,12 @@ export function QuickCard({setStateUseEffect,stateUseEffect,positionCard,setStat
         setStateQuickCard(!stateQuickCard)
     }
 
+    const deleteTareas = (event) =>{
+        deletTarea(id)
+        setStateUseEffect(!stateUseEffect)
+        setStateQuickCard(!stateQuickCard)
+    }
+
     return(
         <>
             {
@@ -29,15 +35,17 @@ export function QuickCard({setStateUseEffect,stateUseEffect,positionCard,setStat
                         <div className='quickCard' onClick={removeQuickCard}/>
                             
                             
-                        <div style={{zIndex:"11",position:"absolute",top:"0", left:"0"}}>
+                        <div style={{zIndex:"11",position:"absolute",top:"0", left:"0",positionCard}}>
                             <form style={positionCard} action="PUT" onSubmit={putTask}>
                                 <textarea onChange={changeTaskValue} 
                                         className='taskArea' 
                                         value={valueQuickCard}>
                                 </textarea>
-                                <button type="submit">Guardar</button>
+                                <button className="buttPutTareaButton" type="submit">Guardar</button>
                             </form>
-                          
+                            <section className="quicCardOptions" style={{position:"absolute",top:positionCard.top ,left:positionCard.left+285}}>
+                                <button onClick={deleteTareas}>❌ ELIMINAR </button>
+                            </section>
                         </div> 
                     </>
                          

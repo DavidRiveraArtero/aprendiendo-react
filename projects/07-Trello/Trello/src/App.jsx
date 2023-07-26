@@ -4,6 +4,9 @@ import { getTable, postTable,updateTable } from './api/Tabla'
 import { getTareas,postTarea } from './api/tareas';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { QuickCard } from './components/quickCard';
+import { ExtendCard } from './components/extendCard';
+
+
 function App() {
 
   const [tables, setTables] = useState([])
@@ -11,6 +14,7 @@ function App() {
   const [tareas,setTareas] = useState([])
   const [changeNameTable, setChangeNameTable] = useState("")
   const [stateQuickCard, setStateQuickCard] = useState(false)
+  const [stateExtendCard,setStateExtendCard] = useState(false)
   const [positionCard,setPositionCard] = useState({})
   const [valueQuickCard,setValueQuickCard] = useState("")
   const [idPostTarea, setIdPostTarea] = useState("")
@@ -77,15 +81,18 @@ function App() {
         }
       }
     }
-    postTarea(txtTarea,fk_id,position)    
+    postTarea(txtTarea,fk_id,position)
+
+    setStateUseEffect(!stateUseEffect)
+       
   }
 
   const calcularPosition = (event) => {
-    const p = event.target.getBoundingClientRect()
+    console.log(event.target.offsetLeft);
     setValueQuickCard(event.target.parentNode.innerHTML.split("<")[0])
     setIdPostTarea(event.target.parentNode.id)
-    const positionX = p.x-257
-    const positionY = p.y
+    const positionX = event.target.offsetLeft-256
+    const positionY = event.target.offsetTop
     setPositionCard({
       width:"275px",
       height:'100px',
@@ -101,7 +108,7 @@ function App() {
 
   return (
     <>
-      <h1>Trello Prue</h1>
+      <h1>Personal Trello</h1>
 
       <DragDropContext onDragEnd={handleOnDragEnd}>
         <Droppable droppableId='tables' direction="horizontal">
@@ -169,6 +176,7 @@ function App() {
       </DragDropContext>
       
       <QuickCard setStateUseEffect={setStateUseEffect} stateUseEffect={stateUseEffect} positionCard={positionCard} setStateQuickCard={setStateQuickCard} stateQuickCard={stateQuickCard} valueQuickCard={valueQuickCard} setValueQuickCard={setValueQuickCard} id={idPostTarea}/>
+      <ExtendCard/>
     </>
   )
 }
