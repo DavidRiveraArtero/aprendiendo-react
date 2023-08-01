@@ -81,7 +81,7 @@ function App() {
     postTarea(txtTarea,fk_id,position)
 
     setStateUseEffect(!stateUseEffect)
-       
+    event.target[0].value = ""
   }
 
   const calcularPosition = (event) => {
