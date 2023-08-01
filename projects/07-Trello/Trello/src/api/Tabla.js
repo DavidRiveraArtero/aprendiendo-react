@@ -40,45 +40,10 @@ export function postTable(nameTable,postion){
 }
 
 export async function updateTable(result){
-    /*
-    const destinationPosition = result.destination.index + 1 
-    const originPosition = result.source.index + 1
-    const idTableMoved = result.draggableId
-
-    const idTableModifi = await searchPosition(destinationPosition)
-    // console.log(result)
-    // console.log("Destination ID",destinationPosition)
-    // console.log("Origin ID",originPosition)
-    // console.log("tableMoved",idTableMoved)
-    // console.log("idTableModifi: ", idTableModifi)
-
-    // FIRTS UPDATE
-    fetch(URI+"/"+idTableMoved,{
-        method:'PUT',
-        body: JSON.stringify({
-            posicion:destinationPosition
-        }),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-        },
-    })
-
-    fetch(URI+"/"+idTableModifi,{
-        method:'PUT',
-        body: JSON.stringify({
-            posicion:originPosition
-        }),
-        headers: {
-            'Content-type': 'application/json; charset=UTF-8',
-        },
-    })
-    */
-
-
+   
     for(var x = 0 ; x<result.length;x++){
         
         if(result[x].posicion != x+1){
-            console.log("Nombre: " , result[x].nombre , "\n ", "posicion",result[x].posicion)
             fetch(URI+"/"+result[x]._id,{
                 method:'PUT',
                 body: JSON.stringify({
@@ -88,19 +53,6 @@ export async function updateTable(result){
                     'Content-type': 'application/json; charset=UTF-8',
                 },
             })
-        }
-    }
-
-}
-
-async function searchPosition(position){
-    const  resp = await fetch(URI)
-    const data = await resp.json()
-
-    for(var x = 0;x<data.length;x++){
-        if(data[x].posicion == position){
-            
-            return data[x]._id
         }
     }
 
