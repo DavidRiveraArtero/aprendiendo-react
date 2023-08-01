@@ -40,7 +40,7 @@ export function postTable(nameTable,postion){
 }
 
 export async function updateTable(result){
-
+    /*
     const destinationPosition = result.destination.index + 1 
     const originPosition = result.source.index + 1
     const idTableMoved = result.draggableId
@@ -72,6 +72,24 @@ export async function updateTable(result){
             'Content-type': 'application/json; charset=UTF-8',
         },
     })
+    */
+
+
+    for(var x = 0 ; x<result.length;x++){
+        
+        if(result[x].posicion != x+1){
+            console.log("Nombre: " , result[x].nombre , "\n ", "posicion",result[x].posicion)
+            fetch(URI+"/"+result[x]._id,{
+                method:'PUT',
+                body: JSON.stringify({
+                    posicion:x+1
+                }),
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                },
+            })
+        }
+    }
 
 }
 

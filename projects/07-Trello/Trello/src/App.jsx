@@ -4,7 +4,6 @@ import { getTable, postTable,updateTable } from './api/Tabla'
 import { getTareas,postTarea } from './api/tareas';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import { QuickCard } from './components/quickCard';
-import { ExtendCard } from './components/extendCard';
 
 
 function App() {
@@ -14,7 +13,6 @@ function App() {
   const [tareas,setTareas] = useState([])
   const [changeNameTable, setChangeNameTable] = useState("")
   const [stateQuickCard, setStateQuickCard] = useState(false)
-  const [stateExtendCard,setStateExtendCard] = useState(false)
   const [positionCard,setPositionCard] = useState({})
   const [valueQuickCard,setValueQuickCard] = useState("")
   const [idPostTarea, setIdPostTarea] = useState("")
@@ -42,12 +40,13 @@ function App() {
   }
 
   function handleOnDragEnd(result){
-   
+    
     const items = Array.from(tables)
     const [reoderItems] = items.splice(result.source.index,1)
     items.splice(result.destination.index,0,reoderItems)
+    console.log(items)
     setTables(items)
-    updateTable(result).then(resp => {
+    updateTable(items).then(resp => {
       setStateUseEffect(!stateUseEffect)
 
     })
@@ -55,14 +54,12 @@ function App() {
   }
 
   const showForm = (event) => {
-    
     event.target.style.display = "none"
     event.target.parentNode.getElementsByTagName("form")[0].style.display = "block"
   }
 
   const closeForm = (event) => {
     event.preventDefault()
-    
     event.target.parentNode.parentNode.style.display = "none"
     event.target.parentNode.parentNode.parentNode.getElementsByClassName("btn_desplegable")[0].style.display = "block"
 
@@ -176,7 +173,7 @@ function App() {
       </DragDropContext>
       
       <QuickCard setStateUseEffect={setStateUseEffect} stateUseEffect={stateUseEffect} positionCard={positionCard} setStateQuickCard={setStateQuickCard} stateQuickCard={stateQuickCard} valueQuickCard={valueQuickCard} setValueQuickCard={setValueQuickCard} id={idPostTarea}/>
-      <ExtendCard/>
+    
     </>
   )
 }
