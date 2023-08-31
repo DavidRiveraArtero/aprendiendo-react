@@ -1,7 +1,7 @@
 export function callApi (setSumonerLevel,setSumonerName,setImgIcon,setListGame,sumonerName,listGame){
 
     // API
-    const apiKey = "RGAPI-3eef72f6-bd09-47a4-9786-4f29e2b75b0f"
+    const apiKey = "RGAPI-5e66e010-e9b8-48fb-8f9c-33b9d5a61f70"
     const refApi = "https://euw1.api.riotgames.com/"
     const refRegionApi = "https://europe.api.riotgames.com/"
 

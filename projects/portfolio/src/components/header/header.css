@@ -1,0 +1,97 @@
+header{
+    top: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: #9C37E0;
+}   
+  
+header .sec_logo{
+    padding-left: 20%;
+}
+
+header .sec_nav{
+    width: 20%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-right: 20%;
+
+}
+
+header .sec_nav h3{
+    transition: all .6s;
+    cursor: pointer;
+
+}
+
+header .sec_nav h3:hover{
+    color: red;
+}
+
+.btn_menu{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    display: none;
+}
+
+.btn_menu svg:hover{
+    fill:white;
+}
+
+.ocult_nav{
+    display: none;
+    flex-direction: column;
+    transition: 2s;
+}
+
+.ocult_nav a{
+    background-color: gray;
+    margin-bottom: 0;
+    margin-top: 0;
+    padding: 20px;
+    text-align: center;
+    font-size: 20px;
+    
+}
+
+.ocult_nav a span{
+    border-bottom: 1px solid black;
+}
+
+
+/* MEDIA */
+
+@media only screen and (max-width: 1191px){
+
+    header .sec_nav{
+        width: 30%;
+    }
+  
+  
+  }
+  
+  @media only screen and (max-width: 390px){
+    header .sec_nav{
+        display: none;
+    }
+    .btn_menu{
+        display: flex;
+    }
+  }
+
+  @media only screen and (max-width: 414px){
+    header .sec_nav{
+        display: none;
+    }
+    .btn_menu{
+        display: flex;
+    }
+  }
+
+  @media only screen and (max-width: 1920px){
+    .ocult_nav{
+        display: none;
+    }
+  }

@@ -9,17 +9,17 @@ export function App () {
   const [img, setImg] = useState()
 
   useEffect(() => {
-
+    
     fetch(CAT_ENDPOINT_RANDOM_FACT)
       .then(resp => resp.json())
       .then(data => {
         const { fact } = data
         
-        const firstWord = fact.split(' ', 1).join(' ') // FORMA MAS RAPIDA donde 1 sera solo la primera palabra
+        const firstWord = fact.split(' ')[0] // FORMA MAS RAPIDA donde 1 sera solo la primera palabra
         
         setFact(firstWord)
 
-        fetch(`https://cataas.com/cat/says/${firstWord}?size=:size&color=:color&json=true`)
+        fetch(`${prefixURL}/cat/says/${firstWord}?size=:size&color=:color&json=true`)
           .then(resp => resp.json())
           .then(response => {
             const {url} = response

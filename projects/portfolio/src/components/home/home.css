@@ -1,0 +1,125 @@
+.section_quickInfo{
+    padding-left: 20%;
+    padding-right: 20%;
+    padding-top: 12%;
+    padding-bottom: 11%;
+}
+  
+.art_section_quickInfo{
+    display: flex;
+    flex-direction: row;
+}
+.art_section_quickInfo .info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-left: 150px;
+}
+.art_section_quickInfo .info h1{
+    font-size: 40px;
+}
+
+.art_section_quickInfo .info .ofice{
+    animation: teclear 2s steps(222);
+    margin-top: 0;
+    color: #2FEDCF;
+
+}
+
+.name{
+    margin-bottom: 0px;
+    animation: teclear 2s steps(222), efecto .5s step-end infinite alternate;
+
+}
+
+img{
+    width: 380px;
+    height: 380px;
+    border-radius: 50%;
+}
+
+.info_enlaces{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  height: 76px;
+}
+
+
+.info_enlaces button:hover{
+  -webkit-box-shadow: 2px 4px 22px -3px rgba(157,56,224,1);
+  -moz-box-shadow: 2px 4px 22px -3px rgba(157,56,224,1);
+  box-shadow: 2px 4px 22px -3px rgba(157,56,224,1);
+}
+
+.info_enlaces a{
+  text-decoration: none;
+  color: white;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 76px;
+  background-color: #F56E00;
+  border-radius: 5px;
+  width: 200px;
+  text-align: center;
+  -webkit-box-shadow: 2px 4px 22px -3px rgba(0,0,0,0.75);
+  -moz-box-shadow: 2px 4px 22px -3px rgba(0,0,0,0.75);
+  box-shadow: 2px 4px 22px -3px rgba(0,0,0,0.75);
+}
+
+.info_enlaces a svg{
+  fill: white;
+
+}
+
+.info_enlaces a:hover{
+  -webkit-box-shadow: 2px 4px 22px -3px rgba(157,56,224,1);
+  -moz-box-shadow: 2px 4px 22px -3px rgba(157,56,224,1);
+  box-shadow: 2px 4px 22px -3px rgba(157,56,224,1);
+}
+
+@keyframes teclear {
+    from {
+      clip-path: polygon(0% 0%, 0 0, 0 100%, 0% 100%);
+     
+    }
+  
+    to{
+      clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+    }
+}
+  
+@keyframes efecto {
+    50%{
+        border-color: transparent;
+    }
+}
+
+/* MEDIA */
+
+
+  
+  @media only screen and (max-width: 390px){
+
+  
+    .section_quickInfo{
+      padding-left: 0%;
+      padding-right: 0%;
+      padding-top: 10%;
+      padding-bottom: 0%;
+    }
+  
+    .art_section_quickInfo{
+      display: flex;
+      flex-direction: column;
+    }
+  
+    .art_section_quickInfo .info{
+      padding-left: 0;
+    }
+  
+    .art_section_quickInfo .info h1{
+      font-size: 32px;
+    }
+  }
